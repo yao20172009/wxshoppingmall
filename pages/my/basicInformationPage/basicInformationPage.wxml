@@ -1,0 +1,51 @@
+<view class='containers'>
+
+  <view class='firstlayout'>
+    <image src="{{img}}" class='firstimagestyle'></image>
+  </view>
+  <view class='thirdlayout'>
+    <view class='thirdlayoutitem'>
+      <text>昵称</text>
+    </view>
+    <view class='fourthlayout'>
+      <view class='fourthlayoutitem'>
+        <view class='margin'>
+          <text class='margin'>{{name}}</text>
+        </view>
+      </view>
+      <view class='fourthlayoutitemtwo'>
+      </view>
+    </view>
+  </view>
+  <view class='lineview'></view>
+  <view class='thirdlayout'>
+    <view class='thirdlayoutitem'>
+      <text>性别</text>
+    </view>
+    <view class='fourthlayout'>
+      <view class='fourthlayoutitem'>
+        <view class='margin'>
+          <text class='margin'>{{sex}}</text>
+        </view>
+      </view>
+      <view class='fourthlayoutitemtwo'>
+      </view>
+    </view>
+  </view>
+  <view class='lineview'></view>
+  <!-- <view class='thirdlayout'>
+    <view class='thirdlayoutitem'>
+      <text>地址</text>
+    </view>
+    <view class='fourthlayout'>
+      <view class='fourthlayoutitem'>
+        <view class='margin'>
+          <text class='margin'>{{province}}{{city}}</text>
+        </view>
+      </view>
+      <view class='fourthlayoutitemtwo'>
+      </view>
+    </view>
+  </view>
+  <view class='lineview'></view> -->
+</view>

@@ -1,0 +1,171 @@
+page {
+  background-color:#efefef;
+  font-family:"Microsoft Yahei, Arial, Helvetica, sans-serif";
+  height:100%;
+  width:100%;
+}
+
+.btn {
+  width: 0rpx;
+  height: 0rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  position:absolute;
+  background: rgba(0, 155, 0, 0.5);
+  top: 0;
+  z-index: 999;
+}
+
+.vv {
+  width: 90%;
+  /* background: rgba(0, 155, 0, 0.5); */
+  position: fixed;
+  bottom: 10%;
+  right: 5%;
+  border-radius: 10rpx;
+}
+button::after{
+  border: none;
+}
+
+.old_box {
+  display: flex;
+  align-items: center;
+  color: #333;
+  width: 100%;
+  height: auto;
+  line-height: 100%;
+  padding: 10rpx 0;
+}
+
+.old_name {
+  width: 76%;
+  font-size: 32rpx;
+  height: 100%;
+  line-height: 1.5rem;
+  padding-left: 24rpx;
+}
+
+.header_title {
+  padding: 20rpx 24rpx;
+  background: #fff;
+  color:#999;
+  font-size:34rpx;
+}
+
+.header_footer {
+  text-align: right
+}
+
+.item {
+  color: #333;
+  font-size: 36rpx;
+  line-height: 50rpx;
+}
+
+.cartList {
+  width: 100%;
+  height: 1.4rem;
+  line-height: 1.5rem;
+  padding: 20rpx 0;
+  background: #fff;
+}
+
+.inside-content {
+  float: left;
+  width: 76%;
+  font-size: 32rpx;
+  height: 100%;
+  line-height: 1.5rem;
+  padding-left: 24rpx;
+}
+
+.order-name {
+  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  float: left;
+  /* border: 1rpx solid #fff;
+  box-sizing: border-box; */
+}
+
+.name-bg {
+  background: #f7f7f7;
+}
+
+.checkName {
+  /* border: 1rpx solid red;
+  box-sizing: border-box; */
+  background: #BB9D4A;
+  color:#fff;
+}
+
+.right-content {
+  float: right;
+  line-height: 1.5rem;
+}
+
+.lists_add {
+  font-size: 36rpx;
+  color: #999;
+  width: 8%;
+  height: 100%;
+  text-align: center;
+}
+
+.order-price {
+  display: inline-block;
+  width: 20%;
+}
+
+/* .item .num {
+  width: 10%;
+  text-align: center;
+  margin: 0 5rpx;
+} */
+
+.cartList .num{
+  width: 10%;
+  text-align: center;
+  margin: 0 5rpx;
+}
+
+.c_puls {
+  width: 100%;
+  height: 100%;
+  line-height: 1.5rem;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+.c_puls image {
+  width: 45rpx;
+  height: 45rpx;
+  padding-top: 5rpx;
+}
+
+
+.save-btn, .cancel-btn {
+  width: 690rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  margin-top: 30rpx;
+  border-radius: 6rpx;
+  box-sizing: border-box;
+}
+
+.save-btn {
+  background-color: #e64340;
+  color: #fff;
+  z-index: 999;
+}
+
+.changeOrder_footer{
+  margin-top: 50rpx
+}

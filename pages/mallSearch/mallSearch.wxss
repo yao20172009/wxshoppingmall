@@ -1,0 +1,16 @@
+@import "../../components/product/product.wxss";
+@import "../../components/search/search.wxss";
+@import "../mall/mall.wxss";
+
+.weui-search-bar {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+}
+
+scroll-view {
+  display: block;
+  width: 100%;
+  margin-top: 80rpx;
+  height: 100%;
+}

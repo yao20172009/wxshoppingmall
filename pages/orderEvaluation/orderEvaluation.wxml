@@ -1,0 +1,34 @@
+<import src="../../components/menu/menu.wxml" />
+<template is="goToUrls" data="{{...menuBox}}" /> 
+<wxs src="../../utils/common.wxs" module="formateUtil" />
+<view wx:if="{{orders.length == 0}}" class='no_orders'>没有订单可评价</view>  
+<scroll-view class="containers" scroll-top="{{scrollTop}}" scroll-y="true">
+  <view wx:for="{{orders}}" wx:key="id" data-index="{{index}}">
+    <view class="shop" bindtap="goToDetail" data-id="{{item.node.id}}">
+      <!-- <navigator url="/pages/order/detail/detail?id={{item.node.id}}" style="width: 100%; height: 100%"> -->
+        <view class='shop-container'>
+          <view class='shop-detail'>
+            <view class='shop-name'>{{item.node.supplier.name}}（{{item.node.supplier.industryName}}）</view>
+            <!-- {{item.node.createdAt}} -->
+            <view class='shop-time'>订单号    {{item.node.no}}</view>
+            <view class='shop-time'>下单时间    {{item.node.createdAt}}</view>
+            <!-- <view class='shop-num'>
+              <text class='shop-total-text2'>共计 <text style='color:blue;  font-weight: bold'>{{item.itemNum}}</text> 件商品， <text style='color:blue;  font-weight: bold'>{{item.giftNum}} </text>件赠品</text>
+            </view>
+            <view class='shop-total'>总价    
+              <text class='shop-total-text1'>￥{{formateUtil.formatPrice(item.node.amount)}}</text>
+            </view> -->
+          </view>
+          <view class='shop-right'>去评价</view>
+        </view>
+        <!-- <view class='active' wx:if="{{index == 0}}">最新</view> -->
+      <!-- </navigator> -->
+    </view>
+  </view>
+  <view class='center center_bottom' wx:if='{{theEnd == true}}'>已经到底了哦!</view>
+</scroll-view>
+
+<!-- 回到顶部按钮 -->
+<!-- <view class="go-top" bindtap="goTop" hidden="{{isGoTop}}">
+  <image src="https://assets.jiejie.io/internet/goTop.png" style="width:50px;height:50px;"></image>
+</view> -->

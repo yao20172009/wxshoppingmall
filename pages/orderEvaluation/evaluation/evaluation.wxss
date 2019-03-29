@@ -1,0 +1,162 @@
+@import "./template/up-pic.wxss";
+.containers {
+  width:100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.evaluate_contant {
+  height: 100%;
+}
+
+/*评价区域  */
+.containers .evaluate_contant .evaluate_item {
+  font-size: 35rpx;
+  color: gray;
+  margin-left: 20rpx;
+  margin-top: 30rpx;
+  margin-right: 20rpx;
+}
+
+/*评价标题  */
+.containers .evaluate_contant .evaluate_item .evaluate_title {
+  display: inline-block;
+}
+
+/*评价盒子  */
+.containers .evaluate_contant .evaluate_item .evaluate_box {
+  position: absolute;
+  left: 220rpx;
+  /* width: 100%; */
+  display: inline-block;
+}
+
+/*星星评价的每个图片  */
+.containers .evaluate_contant .evaluate_item .evaluate_box .star-image {
+  position: absolute;
+  width: 50rpx;
+  height: 50rpx;
+  src: "../../../images/order-details/start_yes.png";
+}
+
+/*星星的左边和右边区域<点击左边半个星星，点击右边整个星星>  */
+.containers .evaluate_contant .evaluate_item .evaluate_box .star-image .item {
+  position: absolute;
+  top: 0rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+/*按钮  */
+.containers .evaluate_contant .submit_button {
+  height: 60rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  margin:50rpx 20rpx;
+}
+
+.inputText {
+  width:92%;
+  display: flex;
+  align-items: center;
+  margin-left:3%;
+  margin-top:50rpx;
+}
+
+.inputText textarea {
+  width:100%;
+}
+
+page {
+  background-color: #efefef;
+  width: 100%;
+  overflow: hidden;
+}
+
+.contant_wrap {
+  background-color: #fff;
+  padding:20rpx 0;
+  width:100%;
+}
+
+.contant {
+  width: 94%;
+  margin: 0 auto;
+}
+
+textarea {
+  min-height: 220rpx;
+  padding: 10rpx 0;
+  width: 100%;
+}
+
+input {
+  margin-top: 30rpx;
+  height: 100rpx;
+  padding-left: 20rpx;
+  background-color: #fff;
+}
+
+button {
+  width: 96%;
+  margin-top: 60rpx;
+  background-color: #e64340;
+  color: #fff;
+}
+
+.placeholder {
+  color: #999;
+  font-size: 12pt;
+}
+
+.opinion_wrap {
+  margin-top:20rpx;
+  width:100%;
+}
+
+.fuwu {
+  width: 100%;
+  padding:10rpx 0rpx 50rpx 0rpx;
+  background: #fff;
+}
+
+
+/* //图片 */
+.big-logos {
+  float: left;
+  margin-bottom:70rpx;
+  width: 100%;
+  height: 200rpx;
+  background:#fff;
+  border-top:4rpx solid #ddd;
+  border-bottom:4rpx solid #ddd;
+  padding: 10rpx 0;
+}
+
+.big-logos .big-logos_img {
+  float: left;
+  width: 100%;
+  height: 200rpx;
+}
+
+.big-logos .big-logos_img image {
+  float: left;
+  width: 33.33%;
+  height: 200rpx;
+}
+
+.opacity {
+  opacity: 0
+}
+
+.big-logos .logoinfo {
+  float:left;
+  width:33.33%;
+  height:200rpx;
+  margin-top:-196rpx;
+}
+.big-logos .logoinfo image {
+  float: left;
+  width: 100%;
+  height: 200rpx;
+}

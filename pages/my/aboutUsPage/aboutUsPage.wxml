@@ -1,0 +1,16 @@
+<view>
+  <view class='background'>
+    <image src='{{backImg}}' class='background-image'></image>
+  </view>
+  <view class='about'>
+    <view class='content' wx:for="{{list}}" wx:key="key">
+        <image src='{{item.img}}' class='picture'></image>
+      <view class='name'>{{item.name}}</view>
+      <view class='details'>{{item.details}}</view>
+    </view>
+  </view>
+  <!-- 底部 -->
+  <view class="weui-footer">
+    <view class="weui-footer__text">{{record}}</view>
+  </view>
+</view>	

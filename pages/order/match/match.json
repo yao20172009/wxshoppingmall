@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "配单",
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#E4393C",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#F6F8F8",
+  "onReachBottomDistance": 10
+}

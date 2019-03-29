@@ -1,0 +1,46 @@
+<!--   跳转各路由 -->
+<template name="goToUrls">
+  <view class='{{active == true ? "toast-box" : ""}}' bindtap='colseMenu'>
+  </view>
+  <view class='goToCartPage {{active == true ? "goToCartPage_active" : ""}}' bindtap='openMenu'>
+    <view class='daohang_img'>
+      <image src='{{active == true ? "../../images/nav/daohang_right.png": "../../images/nav/daohang_left.png"}}' mode='aspectFit'></image>
+    </view>
+    <view class="daohang_text {{active == true ? 'daohang_text1' : ''}}">{{active == true ? "收起" : "快速导航"}}
+    </view>
+  </view>
+  <view class='daohan_box {{active == true ? "daohan_box_active" : ""}}'>
+    <view class='menu_lists'>
+      <view class='menu_list' bindtap='goUrls' data-index="1">
+        <image src='../../images/nav/menu_car.png' mode='aspectFit'></image>
+        <view>购物车</view>
+      </view>
+      <view class='menu_list' bindtap='goUrls' data-index="5">
+        <image src='../../images/nav/menu_main.png' mode='aspectFit'></image>
+        <view>首页</view>
+      </view>
+    </view>
+  <view class='menu_lists'>
+    <view class='menu_list' bindtap='goUrls' data-index="2">
+      <image src='../../images/nav/menu_order.png' mode='aspectFit'></image>
+      <view>订单</view>
+    </view>
+    <view class='menu_list' bindtap='goUrls' data-index="6">
+      <image src='../../images/nav/menu_youhui.png' mode='aspectFit'></image>
+      <view>活动</view>
+    </view>
+  </view>
+  <view class='menu_lists'>
+    <view class='menu_list' bindtap='goUrls' data-index="4">
+      <image src='../../images/nav/menu_my.png' mode='aspectFit'></image>
+      <view>我的</view>
+    </view>
+  </view>
+  <view class='menu_lists'>
+    <view class='menu_list' bindtap='goUrls' data-index="3">
+      <image src='../../images/nav/menu_wenti.png' mode='aspectFit'></image>
+      <view>反馈</view>
+    </view>
+  </view>
+  </view>
+</template>

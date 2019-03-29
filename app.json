@@ -1,0 +1,77 @@
+{
+  "pages": [
+    "pages/eachEvent/eachEvent",
+    "pages/index/index",
+    "pages/shop/shop",
+    "pages/category/category",
+    "pages/category/product/product",
+    "pages/address/index",
+    "pages/address/add/add",
+    "pages/address/select/select",
+    "pages/authorize/index",
+    "pages/cart/index",
+    "pages/cartPay/cartPay",
+    "pages/order/order",
+    "pages/order/detail/detail",
+    "pages/order/match/match",
+    "pages/orderEvaluation/orderEvaluation",
+    "pages/orderEvaluation/evaluation/evaluation",
+    "pages/logs/logs",
+    "pages/my/index",
+    "pages/my/feedback/feedback",
+    "pages/my/basicInformationPage/basicInformationPage",
+    "pages/my/systemSetupPage/systemSetupPage",
+    "pages/my/aboutUsPage/aboutUsPage",
+    "pages/eachEventDetail/eachEventDetail",
+    "pages/eachEventOrder/eachEventOrder",
+    "pages/shopList/shopList",
+    "pages/shopCards/shopCards",
+    "pages/notifications/notifications",
+    "pages/mall/mall",
+    "pages/mallSearch/mallSearch"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#6e6d6b",
+    "selectedColor": "#e64340",
+    "borderStyle": "white",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/eachEvent/eachEvent",
+        "iconPath": "images/nav/03.png",
+        "selectedIconPath": "images/nav/04.png",
+        "text": "活动团"
+      },
+      {
+        "pagePath": "pages/mall/mall",
+        "iconPath": "images/nav/07.png",
+        "selectedIconPath": "images/nav/08.png",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/nav/01.png",
+        "selectedIconPath": "images/nav/02.png",
+        "text": "订货"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "images/nav/05.png",
+        "selectedIconPath": "images/nav/06.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将小程序位置接口的效果展示"
+    }
+  }
+}

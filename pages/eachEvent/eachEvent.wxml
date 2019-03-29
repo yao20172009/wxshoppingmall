@@ -1,0 +1,53 @@
+<view class='page-container'>
+  <view class='list-page-container'>
+    <view class='list-page' style='{{pageStyleColor}}'>
+
+      <!-- 背景图 -->
+      <image mode='scaleToFill' class='list-poster' src='{{ currentPromotion !== null && currentPromotion.imageUrl !== "" ? currentPromotion.imageUrl : defaultImg }}' wx:if="{{listActive == true}}"></image>
+      <image mode='scaleToFill' class='list-poster' src='{{nextPromotion !== null  && nextPromotion.imageUrl !== "" ? nextPromotion.imageUrl : defaultImg}}' wx:if="{{listActive == false}}"></image>
+      <view class='list'>
+        <!--  -->
+        <view wx:if="{{eventList.length == 0 || nextPromotion == null}}" style='margin:0 auto;width:100%'>
+          <view class='eventList_no' wx:if="{{eventList.length == 0}}">
+          新一期活动还未开始，我们正在筹备中，如果您也想与参加我们的活动，一起来为用户带来实惠，请与我们联系人 罗先生 18673412345 联系
+          </view>
+        </view>
+
+        <view class='list-group1' wx:for="{{eventList}}" wx:key="{{index}}" bindtap='bind_goEachEventDetail' data-id='{{item.node.id}}'>
+          <view class='item1'>
+            <image class='item1_img' src='https://assets.jiejie.io/internet/event_box.png' mode="scaleToFill"></image>
+            <view class='left_right_box'>
+              <view class='left1'>
+                <image src="{{item.node.product.imageUrls.length !== 0 ? item.node.product.imageUrls[0] : 'https://assets.jiejie.io/internet/product01.jpg'}}" class='avatar1' mode="aspectFit"></image>
+              </view>
+              <view class='right1'>
+                <view style='padding-left:20rpx;'>
+                  <text class='boughtQuantity1' wx:if="{{item.node.boughtQuantity !== 0}}">已参与</text>
+                  <text class='sales1'>已售 {{item.node.sales}}</text>
+                  <text class='kindText' wx:if="{{item.node.code == '11'}}">双<text class='kindText11'>11</text>
+                  </text>
+                  <text class='kindText' wx:if="{{item.node.code !== '11'}}">优惠</text>
+                  <text class='kindDesc'>{{item.node.kindDesc}}</text>
+                  <text class='title'>{{item.node.product.name}}</text>
+                  <text class='price' wx:if="{{item.node.specialPrice == 0}}">￥ {{item.node.product.price}}<text style='font-size:0.9rem'> /{{item.node.product.unit}}</text>
+                  </text>
+                  <text class='price' wx:if="{{item.node.specialPrice !== 0}}">￥ {{item.node.specialPrice}}<text style='font-size:0.9rem'> /{{item.node.product.unit}}</text>
+                  </text>
+
+                  <view class='item-status'>
+                    <image mode='scaleToFill' class='img1' src='https://s3.cn-north-1.amazonaws.com.cn/liuxin-jinghuobao/shuang11/5.jpg' wx:if="{{item.node.started == true && item.node.ended == false}}"></image>
+                    <image mode='scaleToFill' class='img1' src='https://s3.cn-north-1.amazonaws.com.cn/liuxin-jinghuobao/shuang11/4.jpg' wx:if="{{item.node.started == false && item.node.ended == false}}"></image>
+                    <image mode='scaleToFill' class='img1' src='https://s3.cn-north-1.amazonaws.com.cn/liuxin-jinghuobao/shuang11/6.jpg' wx:if="{{item.node.ended == true}}"></image>
+                  </view>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+        <text wx:if="{{theEnd == true}}" class='noMore'>已经到底了</text>
+       
+      </view>
+    </view>
+  </view>
+</view>
+

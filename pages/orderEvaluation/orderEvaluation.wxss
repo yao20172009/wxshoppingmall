@@ -1,0 +1,24 @@
+@import "../../components/menu/menu.wxss";
+@import "../order/order.wxss";
+
+.shop-container {
+  display: flex;
+}
+
+.shop-right {
+  display: flex;
+  align-items: center;
+  width:15%;
+  padding-right:24rpx;
+  text-align:right;
+  color:red;
+  font-weight:700;
+}
+
+.no_orders {
+  width:100%;
+  font-size: 30rpx;
+  color:#999;
+  text-align: center;
+  margin: 50rpx 0;
+}

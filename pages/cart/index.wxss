@@ -1,0 +1,680 @@
+/**index.wxss**/
+@import "../../components/menu/menu.wxss";
+@import "./cardStyle.wxss";
+
+.btn {
+  width: 0rpx;
+  height: 0rpx;
+  margin: 0;
+  padding: 0;
+  border-radius: 0;
+  position:absolute;
+  background: rgba(0, 155, 0, 0.5);
+  top: 0;
+  z-index: 998;
+}
+
+.vv {
+  width: 35%;
+  /* background: rgba(0, 155, 0, 0.5); */
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 999
+}
+button::after{
+  border: none;
+}
+
+page {
+  background-color: #e9e9e9;
+  /* padding-bottom: 150rpx; */
+  font-family: "Microsoft Yahei, Arial, Helvetica, sans-serif";
+  font-size: 12px;
+}
+/* 没有订单时，显示 */
+.containers {
+  background-color: #e9e9e9;
+  font-family: "Source Han Sans CN";
+  overflow: hidden;
+  padding-bottom:152rpx; 
+}
+
+.zuijin_box {
+  margin-top: 10rpx;
+  box-sizing: border-box;
+}
+
+.text_no {
+  font-size: 40rpx;
+  line-height: 100rpx;
+  padding: 30rpx;
+  background: #fff;
+  color: #999;
+  text-align: center;
+}
+
+.to-index {
+  width: 100%;
+  text-align: center;
+  height: 70rpx;
+  line-height: 70rpx;
+}
+
+.to-index-btn {
+  color: #fff;
+  background: #e64340;
+  padding: 12rpx;
+  margin: 40rpx auto;
+  border-radius: 6px;
+  width: 300rpx;
+  height: 100%;
+  text-align: center;
+  font-size: 32rpx;
+  align-items: center;
+}
+
+/* 没有21 */
+/*   空购物车  */
+.cartList {  
+  padding: 200rpx 0 0 0;  
+  display: flex;  
+  justify-content: center;  
+  flex-direction: column;  
+  align-items: center;  
+  color: #999;  
+}  
+  
+.cartList image {  
+  width: 66px;  
+  height: 66px;  
+  margin-bottom: 20px;  
+}  
+
+
+/* 商品 */
+.shop-cart-cart {
+  flex-direction: column;
+  margin-bottom:50rpx;
+  /* margin-top:140rpx;  */
+  background: #fff;
+  width:95%;
+  margin-left:2.5%;
+  border-radius:10rpx;
+  box-shadow:0px 0px 15rpx 8rpx #ddd;
+}
+
+.shop-box_cart {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* border-top: 1rpx solid #999;
+  border-bottom: 1rpx solid #999; */
+  padding-left: 24rpx;
+}
+
+.left {
+  width:12%;
+  display:flex;
+  align-items:center;
+}
+
+.item-singleSelect {
+  width: 25px;
+  height: 25px;
+  background-image: url(http://xs01.meituan.net/waimai_web/img/sprite/icons_559f3531_1.png);
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+
+.right {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.right .shop-name {
+  color: #313131;
+  font-size: 16px;
+  height: 60rpx;
+  line-height: 70rpx;
+  /* font-weight: bold; */
+  padding: 10rpx 0;
+  position: relative;
+}
+
+.shop-image {
+  width:45rpx;
+  height: 45rpx;
+}
+
+.shop-name1 {
+  padding-left: 10rpx;
+}
+
+.shop-name-cart {
+  width:75%;
+  display: flex;
+  align-items: center;
+}
+
+.shop-del {
+  width:15%; 
+  /* float: right; */
+  color: #999;
+  position: absolute;
+  /* top: 10rpx; */
+  right: 24rpx;
+  z-index: 99;
+  padding: 20rpx 0;                           
+}
+
+.shop-date, .shop-price {
+  font-size: 14px;
+  line-height: 25px;
+  color: #999;
+  margin-top: 1%;
+}
+
+.order_total text {
+  color: red;
+}
+
+/* 确认订单 */
+
+.bottom_total {
+  position: fixed; /*定位在最下面*/
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  z-index: 99;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #3D3D3D;
+  font-size: 30rpx;
+  padding-left: 24rpx;
+  color:#fff;
+}
+
+.row text {
+  font-size: 34rpx;
+}
+
+.price {
+  /* 合计金额*/
+  color: #fff;
+  position: relative;
+}
+
+.priceNew {
+  color: black;
+  text-decoration-line: line-through;
+  text-align: right;
+}
+
+.button-red {
+  font-size: 32rpx;
+  font-weight: bold;
+  background-color: #f44336; /* 红色 */
+  position: fixed;
+  right: 0;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  border-radius: 0rpx;
+  width: 35%;
+  height:120rpx;
+  line-height:120rpx;
+}
+
+/* 订单详情 */
+
+.commodity {
+  width: 100%;
+}
+
+.commodity-goods {
+  width: 40%;
+}
+
+.item_product {
+  /* border-bottom: 1px double gray; */
+}
+
+.pro_product {
+  display: flex;
+  height: 2rem;
+  justify-content: space-between;
+  align-items: center; /* 上下垂直居中*/
+  font-size: 32rpx;
+  padding: 14rpx 24rpx;
+}
+
+.pro_product .product {
+  width: 45%;
+}
+
+.nav {
+  display: flex;
+  height: 2rem;
+  justify-content: space-between;
+  /* border-bottom: 1px double gray; */
+  align-items: center;  
+  font-size: 32rpx;
+  padding: 14rpx 24rpx;
+}
+
+.order_line {
+  width: 96%;
+  height:2rpx;
+  background:#ddd;
+  margin-left:2%;
+}
+
+.header {
+  display: -webkit-flex;
+}
+
+.product {
+  width: 75%;
+}
+
+.productLeft {
+  text-align: left;
+}
+
+.number {
+  width: 15%;
+}
+
+.price {
+  width: 15%;
+}
+
+.middle {
+  display: flex;
+  justify-content: center;
+}
+
+/*活动提示*/
+
+.activity {
+  width: 100%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border-bottom: 1px double gray;
+}
+
+.content {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  word-break: break-all;
+  padding-top: 1%;
+  margin-bottom: 1%;
+  font-size: 30rpx;
+  padding: 0 24rpx;
+}
+
+.giftName {
+  color: #fff;
+  padding: 4rpx 8rpx;
+}
+
+.giftProduct {
+  width: 75%;
+  justify-content: flex-start;
+  padding-left: 2%;
+}
+
+.giftNumber {
+  width: 20%;
+}
+
+.reduceNumber {
+  width: 25%;
+}
+
+/*送至  */
+
+.distribution {
+  position: fixed;
+  width: 100%;
+  line-height: 60rpx;
+  bottom: 120rpx;
+  z-index: 99;
+}
+
+.distribution-address {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  background-color: rgb(252, 242, 193);
+}
+
+.distribution .distribution-address-detail {
+  color: rgba(156, 168, 60, 0.849);
+}
+
+.distribution .distribution-arrive {
+  color: rgba(156, 168, 60, 0.849);
+}
+
+/* 下订单 */
+
+.settlement {
+  padding-top: 96rpx;
+  font-size: 1rem;
+}
+
+.box {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+  line-height: 3rem;
+  background: gainsboro;
+}
+
+.prix {
+  color: red;
+  position: relative;
+  left: 6%;
+}
+
+.button-red {
+  background-color: #f44336;
+  position: fixed;
+  right: 0%;
+  bottom: 0%;
+  color: wheat;
+  text-align: center;
+  display: inline-block;
+  width: 35%;
+}
+
+/* 重写商品样式 */
+
+.nav-goods {
+  width: 70%;
+}
+
+.nav-number, .nav-pro {
+  flex-direction: row;
+  display: flex;
+  width: 15%;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.pro-goods {
+  width: 65%;
+}
+
+.pro-number {
+  width: 15%;
+}
+
+.pro-price {
+  width: 15%;
+}
+
+.pro-number, .pro-price {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* 地址 */
+
+.Dbox {
+  width: 100%;
+  background-color: #fff;
+  /* margin-top: 20rpx; */
+  /* border-top: 1rpx solid #999; */
+}
+
+.Dbox .address {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx 0;
+}
+
+.address .landmark {
+  width: 15%;
+  padding-top: 20rpx;
+  padding-left: 14rpx;
+}
+
+.landmark image {
+  width: 100%;
+  height: 125rpx;
+}
+
+.address .detailed-address {
+  width: 70%;
+  display: inline-block;
+  padding-left: 15rpx;
+}
+
+.detailed-address .address-box {
+  flex-direction: column;
+}
+
+.address .select-address {
+  width: 13%;
+  padding-top: 35rpx;
+  margin-right: 5rpx;
+}
+
+.select-address image {
+  height: 80rpx;
+  width: 80%;
+}
+
+.detailed-address .name-tel {
+  margin-bottom: 20rpx;
+  font-weight: 700;
+  font-size: 32rpx;
+}
+
+.detailed-address .address-box {
+  font-size: 28rpx;
+  color: #888;
+  line-height: 36rpx;
+  overflow: hidden;
+}
+
+.detailed-address .address-box .box-add {
+  margin-bottom: 5rpx;
+}
+
+/* 地址 0*/
+.address_page_cart {
+  width: 100%;
+  margin:0 auto;
+  background: #E42A3C;
+  height:180rpx;
+  position: relative;
+}
+
+.address_box_cart {
+  font-size: 32rpx;
+  margin:0 auto;
+  padding: 40rpx 0 40rpx 0;
+  left:2.5%;
+  top:30rpx;
+  border-radius:10rpx;
+  background: #fff;
+  width: 95%;
+  position: absolute;
+  box-shadow:0 4rpx 0px 1rpx #e1e1e1;
+}
+
+.address_body_cart {
+  display: flex;
+}
+
+.address_left_cart {
+  width: 20%;
+  height: 100rpx;
+  display: flex;
+  align-items: center;
+}
+
+.address_left_cart image {
+  margin: 0 auto;
+  width: 70rpx;
+  height: 70rpx;
+  background: #fff;
+}
+
+.address_center_cart {
+  width: 70%;
+  line-height: 1.2rem;
+}
+
+.address_right_cart{
+  width:10%;
+  display: flex;
+  align-items: center
+}
+
+.address_right_cart image {
+  margin:0 auto;
+  width:30rpx;
+  height:60rpx;
+  background:#fff;
+}
+
+.address_name_cart {
+  color: #999;
+  padding-left:40rpx
+}
+
+.address_name_phone_cart {
+  width: 100%;
+  display: flex;
+  line-height: 1.35rem;
+  color: #999;
+  padding:10rpx 0;
+}
+
+.address_name_cart, .address_phone_cart {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.address_phone_cart {
+  width: 45%;
+  margin-left: 3%;
+}
+
+.address_address_cart {
+  padding-right: 24rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-weight: 700
+}
+
+.card_footer {
+  padding-bottom: 120rpx;
+}
+
+.card_imgae {
+  width: 15rpx;
+  height: 30rpx;
+  margin-top:12rpx;
+}
+
+.order_card {
+  width:80%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+
+.order-detail-box {
+  /* padding-bottom:151rpx; */
+  margin-top:10rpx;
+  height:100%;
+  background:#fff;
+}
+
+.tabs-box {
+  display: flex;
+  padding: 10rpx 0;
+}
+
+.tabs-item.selected {
+  color: rgba(171, 149, 109, 0.8);
+  border-bottom: 2px solid rgba(171, 149, 109, 0.8);
+}
+
+.tabs-item {
+  width: 50%;
+  color: #c7c7cb;
+  font-size: 35rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border-bottom:1rpx solid #D0D0D7; */
+}
+
+.member_points{
+  padding:24rpx;
+  font-size: 32rpx;
+  display: flex;
+  align-items: center;
+}
+
+.yuanbao {
+  width:40rpx;
+  height: 40rpx;
+  margin-left:20rpx;
+}
+
+.yuanbao_jifen {
+  margin-left:10rpx;
+  font-size: 32rpx; 
+  color:#B8860B;
+}
+
+.yuanbao_lv {
+  font-size: 32rpx; 
+  color:#E4393C;
+}
+
+.tishi_total {
+  font-size: 26rpx;
+  color:#999;
+}
+
+.member_tishi {
+  padding:0 24rpx 24rpx 24rpx;
+  font-size:32rpx;
+  display:flex;
+  align-items:center;
+}

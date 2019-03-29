@@ -1,0 +1,136 @@
+<view class="userinfo">
+  <image class="userinfo-avatar" src="{{userInfo !== null ? userInfo.avatarUrl : 'https://assets.jiejie.io/internet/morentouxiang.jpeg'}}" background-size="cover"></image>
+  <text class="userinfo-nickname">{{ userInfo !== null ? userInfo.nickName : "需登入"}}</text>
+</view>
+
+<view class="separate"></view>
+<!-- <view class="order" catchtap="toOrder" data-url='{{orderItems[0].url}}'>
+  <text class="myorder-text">我的订单</text>
+  <text class="myorderlook-text">查看全部订单</text>
+</view>
+<view class="line"></view>
+<view class="navs">
+  <block wx:for="{{orderItems}}" wx:key="name">
+    <view class="nav-item" catchtap="toOrder" data-url='{{item.url}}'>
+      <image src="{{item.imageurl}}" class="nav-image" />
+      <text>{{item.name}}</text>    </view>
+  </block>
+</view> -->
+<view class="separate"></view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">购物车</text>
+  <navigator url="/pages/cart/index" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">购物车</navigator>
+</view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">会员及优惠卷</text>
+  <navigator url="/pages/shopList/shopList" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">会员及优惠卷</navigator>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">我的订单</text>
+  <navigator url="/pages/order/order" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">我的订单</navigator>
+</view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">评价订单</text>
+  <navigator url="/pages/orderEvaluation/orderEvaluation" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">评价订单</navigator>
+</view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">消息通知</text>
+  <navigator url="/pages/notifications/notifications" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">消息通知</navigator>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">基本信息</text>
+  <navigator url="/pages/my/basicInformationPage/basicInformationPage" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">基本信息</navigator>
+</view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">收货地址</text>
+  <navigator url="/pages/address/index" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">收货地址</navigator>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+
+<!-- <view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">联系客服</text>
+  <button open-type="contact" bindcontact="handleContact" class='kefu' wx:if="{{userInfo !== null}}">联系客服</button>
+</view> -->
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">意见反馈</text>
+  <navigator url="/pages/my/feedback/feedback" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">意见反馈</navigator>
+</view>
+<view class="my-item">
+  <navigator url="/pages/my/aboutUsPage/aboutUsPage" hover-class="navigator-hover">关于我们</navigator>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+<view class="my-item" bindtap='bindGoTo1'>
+  <text wx:if="{{userInfo == null}}">系统设置</text>
+  <navigator url="/pages/my/systemSetupPage/systemSetupPage" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">系统设置</navigator>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+<view class="my-item" style="border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;">
+  <button type="primary" bindtap="relogin">微信登录</button>
+</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+<view class="version">Powered by JieJie v {{version}}</view>
+<view style="height:20rpx;background: #eee;width:100%;"></view>
+
+<!-- <view class="containers" wx:if="{{aaa == true}}">
+  <view class="userinfo">
+    <image class="userinfo-avatar" src="{{userInfo !== null ? userInfo.avatarUrl : 'https://assets.jiejie.io/internet/morentouxiang.jpeg'}}" background-size="cover"></image>
+    <text class="userinfo-nickname">{{ userInfo !== null ? userInfo.nickName : "需登入"}}</text>
+  </view>
+
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">购物车</text>
+    <navigator url="/pages/cart/index" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">购物车</navigator>
+  </view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">会员及优惠卷</text>
+    <navigator url="/pages/shopList/shopList" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">会员及优惠卷</navigator>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">订单列表</text>
+    <navigator url="/pages/order/order" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">订单列表</navigator>
+  </view>
+<<<<<<< HEAD
+=======
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">评价订单</text>
+    <navigator url="/pages/orderEvaluation/orderEvaluation" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">评价订单</navigator>
+  </view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">消息列表</text>
+    <navigator url="/pages/notifications/notifications" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">消息列表</navigator>
+  </view>
+>>>>>>> 75e5282e8547f055c498b73874fb564780398102
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">基本信息</text>
+    <navigator url="/pages/my/basicInformationPage/basicInformationPage" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">基本信息</navigator>
+  </view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">收货地址</text>
+    <navigator url="/pages/address/index" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">收货地址</navigator>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">意见反馈</text>
+    <navigator url="/pages/my/feedback/feedback" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">意见反馈</navigator>
+  </view>
+  <view class="my-item">
+    <navigator url="/pages/my/aboutUsPage/aboutUsPage" hover-class="navigator-hover">关于我们</navigator>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" bindtap='bindGoTo1'>
+    <text wx:if="{{userInfo == null}}">系统设置</text>
+    <navigator url="/pages/my/systemSetupPage/systemSetupPage" hover-class="navigator-hover" wx:if="{{userInfo !== null}}">系统设置</navigator>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="my-item" style="border:none;padding:0rpx;margin:0rpx;background:none;border:none;height:auto;line-height:auto;">
+    <button type="primary" bindtap="relogin">微信登录</button>
+  </view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+  <view class="version">Powered by JieJie v {{version}}</view>
+  <view style="height:20rpx;background: #eee;width:100%;"></view>
+</view> -->

@@ -1,0 +1,137 @@
+<wxs module="filters" src="../../components/toFiex2.wxs"></wxs>
+<import src="../cart/cardColor.wxml" />
+<view class='mobile-order'>
+  <view class='warp-zone'>
+    <view class='info-head'>
+      <view class='notification pull-left'>请确认订单</view>
+      <view style="clear: both;"></view>
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/liuxin-jinghuobao/eventOrder_bianji.png' class='status-bianji' mode='scaleToFill'></image>
+      <image src='https://s3.cn-north-1.amazonaws.com.cn/liuxin-jinghuobao/peisong.png' class='status pull-right' mode='scaleToFill'></image>
+    </view>
+    <view class='show-zone'>
+      <view class="receiver-info" data-id="{{defaultAddress.id}}" bindtap="selectAddress">
+        <text wx:if="{{defaultAddress !== null}}">收 货 人：{{defaultAddress.receiver}}</text>
+        <text wx:if="{{defaultAddress !== null}}" decode="true">电 &nbsp;&nbsp;&nbsp;&nbsp; 话：{{defaultAddress.phone}}</text>
+        <text wx:if="{{defaultAddress !== null}}" decode="true">地 &nbsp;&nbsp;&nbsp;&nbsp; 址：{{defaultAddress.province}}{{defaultAddress.city}}{{defaultAddress.county}}{{defaultAddress.road}}</text>
+        <text wx:if="{{defaultAddress == null}}">收 货 人：请点击选择或添加</text>
+        <text wx:if="{{defaultAddress == null}}" decode="true">电 &nbsp;&nbsp;&nbsp;&nbsp; 话：请点击选择或添加</text>
+        <text wx:if="{{defaultAddress == null}}" decode="true">地 &nbsp;&nbsp;&nbsp;&nbsp; 址：请点击选择或添加</text>
+      </view>
+      <!-- <view class='receiver-info'>
+         <text>订 单 号： 2</text> 
+        <text>创建时间：2018/10/29 17:32</text>
+      </view> -->
+      <view class='beizhu'>
+        <text>备注：</text>
+        <text class="note">
+          {{note == "" ? "暂无备注" : note}}
+        </text>
+        <button class="btn btn-default add-note" data-toggle="modal" data-target="#note-order-2" bindtap='openBeizhu'>添加</button>
+      </view>
+      <view class="receiver-info">
+        <image class='shop_img' src='../../images/order-details/wxb.png'></image>
+        <view class='shop_title'>{{order.supplier.name}}</view>
+      </view>
+      <view class='list-group-item'>
+        <view class='item_img_name'>
+          <image class='item_img' src='{{order.imageurls.length !== 0 ?order.imageurls[0] : "https://assets.jiejie.io/internet/product01.jpg"}}'></image>
+          <view class='item_name'>
+            <text>{{order.name}}</text>
+          </view>
+        </view>
+        <view class='item_price'>
+          <view class="text-right">
+            ¥ {{order.price}}
+          </view>
+          <view class="text-right">
+            × {{order.quantity}} {{order.unit}}
+          </view>
+          <!-- <view class="text-right">
+            ¥ {{filters.toFix(order.price * order.quantity)}}
+          </view> -->
+        </view>
+      </view>
+      <view class='list-item-settlement'>
+        <view class="text-right">
+          <text>一共 {{order.quantity}}{{order.unit}}商品 </text>
+          <text wx:if="{{order.gift !== null}}">,{{order.giftNum}}{{order.gift.unit}}赠品</text>
+          <text>  合计：  ¥ {{filters.toFix(order.price * order.quantity)}}</text>
+        </view>
+        <view class="text-right">
+          <text>活动：{{order.kindDesc}}</text>
+        </view>
+        <!-- 优惠卷 -->
+        <view class='order_xiaoji nav' bindtap='clickme' data-order="{{order}}" wx:if="{{order.card == null}}">
+          <view class='order_quantity'>优惠卷</view>
+          <view class='order_quantity' style='display:flex'>
+            <view style='margin-right:10rpx;color:#999'>使用</view>
+            <image src='https://assets.jiejie.io/internet/right11.png' class='card_imgae'></image>
+          </view>
+        </view>
+        <view class='order_xiaoji nav' bindtap='clickme' data-order="{{order}}" wx:if="{{order.card !== null}}">
+          <view class='order_quantity order_card'>优惠：{{order.card.card.name}}
+            <text style='color:red'>    -￥{{order.card.card.reduceCost / 100}}</text>
+          </view>
+          <view class='order_quantity' style='display:flex'>
+            <view style='margin-right:10rpx;color:#999'>选择</view>
+            <image src='https://assets.jiejie.io/internet/right11.png' class='card_imgae'></image>
+          </view>
+        </view>
+        <view class="text-right zongji">
+          <text>总计：</text>
+          <text style='color:red'>¥ {{filters.toFix(order.price * order.quantity - order.discountAmount - order.leastCost)}}</text>
+        </view>
+      </view>
+      <view class='list-item-btn'>
+        <button class='btn-x' type='warn' bindtap='bindGoBack'>取消</button>
+        <form bindsubmit='createOrder' report-submit="true">
+          <button class='btn-s' type='primary' formType="submit">确定</button>
+        </form>
+      </view>
+    </view>
+    <view class='receive-operation'></view>
+  </view>
+</view>
+
+
+<view class='toast-box' hidden='{{ifName}}'>
+  <view class='toastbg'></view>
+  <view class='showToast'>
+    <view class='toast-title'>
+      <text>备注信息</text>
+    </view>
+    <view class='toast-main'>
+      <view class='toast-input'>
+        <input placeholder='请输入备注信息' bindinput='setValue' value='{{noteUpdata}}'></input>
+      </view>
+    </view>
+    <view class='toast-button'>
+      <view class='button1'>
+        <button catchtap='closeBeizhu'>取消</button>
+      </view>
+      <view class='button2'>
+        <button catchtap='confirm'>确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框  -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='card_header'>
+    <view class='card_header_left'>优惠卷</view>
+    <view class='card_header_right' bindtap='checkCard_no' data-cartGroupId="{{cardLists.cartGroupId}}">不使用优惠卷</view>
+    <view class='card_header_right1' bindtap='hideModal'>
+      <image src='https://assets.jiejie.io/internet/close.png'></image>
+    </view>
+  </view>
+  <scroll-view class='card_body' scroll-y="true">
+    <template is="stamp01" data="{{...cardLists}}" />
+    <view style='height:100rpx'></view>
+  </scroll-view>
+
+  <view class='card_footer'>
+  </view>
+</view>

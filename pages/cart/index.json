@@ -1,0 +1,12 @@
+{
+   "usingComponents": {
+    "dialog": "../../components/promptDialogBox/dialog",
+    "stepper": "../../components/stepper/stepper",
+    "inputModal": "../../components/modal/inputModal/inputModal"
+  },
+   "navigationBarTitleText": "购物车",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#E42A3C",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#F6F8F8"
+}

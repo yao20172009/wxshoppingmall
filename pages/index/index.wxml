@@ -1,0 +1,49 @@
+<!-- <view class="containers"> -->
+<!-- <button open-type="launchApp" app-parameter="wechat" binderror="launchAppError">打开APP</button> -->
+<!-- <button open-type="contact" bindcontact="handleContact" style='height:80rpx'>客服</button> -->
+
+<scroll-view class='containers' scroll-y="true" scroll-into-view="{{scrollIntoView}}" bindscroll="onScroll">
+  <view id="nearby" class="section section-big nearby">
+    <!-- <view class="title">附近供应商</view>  -->
+    <view class="shop" wx:for="{{suppliers}}" wx:key="id" bindtap="goToShop" data-index="{{index}}">
+      <view class='shop-container'>
+        <view class='shop-detail'>
+          <view style='width:100%;display:flex'>
+            <view class='shop-name'>
+              {{item.node.name}}
+            </view>
+            <view class='shop-monthSales'>月销量 {{item.node.monthSales}}</view>
+          </view>
+          <view class='item_bottom'>
+            <view class='item_bottom_img'>
+              <image src='{{item.node.logo !== null ? item.node.logo : "https://assets.jiejie.io/internet/weishangchuan.jpeg"}}'></image>
+            </view>
+            <view class='item_bottom_right'>
+              <view class='shop-businesses'> 主营{{item.node.industryName}}，{{item.node.businesses}}</view>
+              <view class='shop-address'>
+                <image src='../../images/order-details/icon-address.png'></image>
+                {{item.node.address}}</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='center center_bottom' wx:if='{{theEnd == true}}'>已经到底了哦!</view>
+</scroll-view>
+<!-- </view> -->
+
+<template is="getPoints" data="{{...getPoints}}" />
+<template name="getPoints">
+  <view>
+    <modal title="获得积分" confirm-text="确认" cancel-text="取消" hidden="{{addtellHidden}}" bindconfirm="modalConfirm" bindcancel="modalCancel" data-id='{{id}}'>
+      <label>
+        <view class="tellsection">
+          <block wx:for="{{items}}" wx:key="">
+            <view>{{item.title}}</view>
+          </block>
+        </view>
+      </label>
+    </modal>
+  </view>
+</template>

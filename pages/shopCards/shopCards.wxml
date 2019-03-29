@@ -1,0 +1,55 @@
+<import src="../cart/cardColor.wxml" />
+
+<view class='page1'>
+  <view class="content-header1">
+    <view class='header-left'>
+      <view class='header-left-yuanjiao'>
+        <image src='{{shopMember.supplier.logo !== null ? shopMember.supplier.logo : "https://assets.jiejie.io/internet/weishangchuan.jpeg"}}'></image>
+      </view>
+    </view>
+    <view class='header-center'>
+      <view class='headerText noHang'>商家名称　{{shopMember.supplier.name}}</view>
+      <view class='huiseText'>我的积分
+        <image src='../../images/order-details/yuanbao.png' class='yuanbao'></image>
+        <view class='yuanbao_jifen'>{{shopMember.points}}</view>
+      </view>
+      <view class='huiseText'>我的等级
+        <image src='../../images/order-details/vip.png' class='yuanbao'></image>
+        <view class='yuanbao_lv'>{{shopMember.level}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class='shop-box'>
+    <view class='right'>
+      <view class='tabs-box'>
+        <block wx:for="{{['兑换卡卷','  待领取']}}" wx:key="id">
+          <view class='tabs-item {{currTabsIndex == index ? "selected" : ""}}' bindtap='onTabsItemTap' data-index="{{index}}">
+            {{item}}
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <view class='order-detail-box'>
+    <view hidden='{{currTabsIndex != 0}}' style='height:100%'>
+      <scroll-view class='containers' scroll-y="true">
+        <view style='margin:20rpx'></view>
+        <view wx:if="{{cardLists.cards.length == 0}}" class='cards_no'>暂时没有可兑换的卡卷！</view>
+        <template is="stamp01" data="{{...cardLists}}" />
+        <view style='height:320rpx;'></view>
+      </scroll-view>
+    </view>
+    <view hidden='{{currTabsIndex != 1}}' style='height:100%'>
+      <scroll-view class='containers' scroll-y="true" style='height:100%'>
+        <view style='margin:20rpx'></view>
+        <view class='member_tishi ' wx:if='{{withdCardLists.cards.length !== 0}}'>
+          <view class='tishi_total'>温馨提示：亲爱的用户，您兑换了卡卷却没有领取喔，我们会为您保管24小时，如您没有及时领取，我们将会回收优惠卷以及返回您的积分！</view>
+        </view>
+        <view wx:if="{{withdCardLists.cards.length == 0}}" class='cards_no'>暂时没有已兑换未领取的卡卷！</view>
+        <template is="stamp01" data="{{...withdCardLists}}" />
+        <view style='height:320rpx;'></view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

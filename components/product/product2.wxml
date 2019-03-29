@@ -1,0 +1,27 @@
+<template name="list_2">
+  <block wx:for='{{dataList}}' wx:key='list' wx:for-item="item">
+    <view class='child' bindtap='goto_detail'>
+      <image class="child-img" src="{{item.goods_img}}" />
+      <text class="itemTitle">{{item.goods_title}}</text>
+      <view class="money">
+        <text class="moneyIcon">¥</text>
+        <text class='moneyText'>{{item.goods_price}}</text>
+        <!--  yuanjia-->
+        <!-- <view class="salesMoney" wx:if="{{item.realPrice !== item.originalPrice}}">{{item.originalPrice}}</view> -->
+      </view>
+    </view>
+  </block>
+</template>
+
+<template name="itemInfoTemplate">
+  <view>
+    <image class="child-img" src="{{imageUrls.length == 0 ? 'https://assets.jiejie.io/internet/weishangchuan.jpeg' : imageUrls[0]}}" />
+    <text class="itemTitle">{{name}}</text>
+    <view class="money">
+      <text class="moneyIcon">¥</text>
+      <text class='moneyText'>{{price}}  / {{unit}}</text>
+      <view class="salesMoney" wx:if="{{price !== originalPrice}}">{{originalPrice}}</view>
+    </view>
+    <!-- <text class="supplierName">{{supplier.name}}</text> -->
+  </view>
+</template>

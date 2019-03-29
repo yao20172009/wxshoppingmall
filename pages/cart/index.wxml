@@ -1,0 +1,376 @@
+<wxs src="../../utils/common.wxs" module="formateUtil" />
+<!-- <import src="../../components/menu/menu.wxml" /> -->
+<import src="./cardColor.wxml" />
+
+<!-- <template is="goToUrls" data="{{...menuBox}}" /> -->
+<view class="containers">
+  <view class="cartList" wx:if="{{carts.length == 0}}">
+    <image src="https://assets.jiejie.io/internet/car-no.png" />
+    <view bindtap="toIndexPage">购物车什么都没有，赶快去购物吧~٩(๑❛ᴗ❛๑)۶~</view>
+    <text class="to-index-btn" bindtap="toIndexPage">去逛逛</text>
+  </view>
+  <dialog is-show-toast="{{isShowToast}}" toast-text="{{toastText}}" />
+
+  <!--收货 地址 -->
+  <view class='address_page_cart' data-id="{{defaultAddress.id}}" bindtap="selectAddress" wx:if="{{carts.length > 0}}">
+    <view class='address_box_cart'>
+      <view class='address_body_cart'>
+        <view class='address_left_cart'>
+          <image src='https://assets.jiejie.io/internet/12.png'></image>
+        </view>
+        <view class='address_center_cart'>
+          <view class='address_address_cart'>{{defaultAddress.province}} {{defaultAddress.city}} {{defaultAddress.county}} {{defaultAddress.road}}</view>
+        </view>
+        <view class='address_right_cart'>
+          <image src='https://assets.jiejie.io/internet/right11.png'></image>
+        </view>
+      </view>
+      <view class='address_footer_cart'>
+        <view class='address_name_phone_cart'>
+          <view class='address_name_cart'>{{defaultAddress.receiver}}</view>
+          <view class='address_phone_cart'>{{defaultAddress.phone}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!--弹窗 修改产品数量-->
+  <inputModal id='inputModal' product='{{inputData}}' bind:inputChange="bindInputChange" bind:confirm="onConfirm" />
+  <view style='margin-top:140rpx'></view>
+  <view class='shop-cart-cart' style="color: {{cart.selected? '' : 'rgb(192,192,192)'}}" wx:for="{{carts}}" wx:for-item="cart" wx:for-index="cartIndex" wx:key="id" wx:if="{{carts != ''}}">
+    <view class='shop-box_cart'>
+      <view class='left' data-index="{{cartIndex}}" data-id="{{cart.id}}" bindtap="slectCartGroupIds">
+        <image class="item-singleSelect" style="background-position:{{cart.selected? '-100px -56px' : '-100px -86px;'}};" />
+      </view>
+      <view class='right' data-index="{{cartIndex}}" data-id="{{cart.id}}" bindtap="slectCartGroupIds">
+        <view class='shop-name shop-name-cart'>
+          <image class="shop-image" src='https://assets.jiejie.io/internet/shop13.png' />
+          <view class='shop-name1'>{{cart.name}} </view>
+        </view>
+      </view>
+      <view class="shop-del" data-id="{{cart.id}}" data-index="{{cartIndex}}" bindtap="deleteCart">删除订单</view>
+    </view>
+    <view class='order_line'></view>
+    <view class='commodity'>
+      <!-- <view class='nav'>
+        <view class='nav-goods'>商品</view>
+        <view class='nav-number'>数量</view>
+        <view class='nav-pro'>总价</view>
+      </view> -->
+      <!--  商品 -->
+      <block wx:for="{{cart.items}}" wx:key="" wx:for-item="pro" wx:for-index="proIndex">
+        <view class="item_product">
+          <view class="pro_product ">
+            <view class="pro-goods">{{pro.product.name}}</view>
+            <!--  数量-->
+            <view class="pro-number" style="color: {{cart.selected? 'blue' : 'rgb(192,192,192)'}};text-decoration: underline;" data-product-index="{{proIndex}}" data-cart-index="{{cartIndex}}" data-cart-selected="{{cart.selected}}" data-product-quantity="{{pro.quantity}}"
+              bindtap="showModalBtn">{{pro.quantity}}{{pro.unit}}
+            </view>
+            <!--  总价-->
+            <view class="pro-price">￥{{pro.price * pro.quantity}}</view>
+          </view>
+          <!-- 活动优惠 -->
+          <view class="content" style="color: {{cart.selected? 'red' : 'rgb(192,192,192)'}}">
+            <block wx:if="{{pro.gift != null }}">
+              <view class="giftName" style="background-color: {{cart.selected? 'red' : 'rgb(192,192,192)'}}">{{pro.gift.kindName}}</view>
+              <view class="giftProduct middle">{{pro.gift.name}}</view>
+              <view class="giftNumber middle">{{pro.gift.quantity}} {{pro.gift.unit}}</view>
+            </block>
+            <block wx:if="{{pro.discount != null }}">
+              <view class="giftName" style="background-color: {{cart.selected? 'red' : 'rgb(192,192,192)'}}">{{pro.discount.kindName}}</view>
+              <view class="reduceNumber middle">-￥{{formateUtil.formatPrice(pro.discount.discountAmount)}}</view>
+              <!-- <view class="reduceNumber middle">-￥{{formateUtil.formatPrice((pro.originPrice - pro.price) * pro.quantity)}}</view> -->
+            </block>
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='order_line'></view>
+    <view class='order_xiaoji nav' bindtap='clickme' data-id="{{cart.id}}" data-supplierId='{{cart.supplier.id}}' wx:if="{{cart.card == null}}">
+      <view class='order_quantity'>优惠卷</view>
+      <view class='order_quantity' style='display:flex'>
+        <view style='margin-right:10rpx;color:#999'>使用</view>
+        <image src='https://assets.jiejie.io/internet/right11.png' class='card_imgae'></image>
+      </view>
+    </view>
+    <view class='order_xiaoji nav' bindtap='clickme' data-id="{{cart.id}}" data-supplierId='{{cart.supplier.id}}' wx:if="{{cart.card !== null}}">
+      <view class='order_quantity order_card'>优惠：{{cart.card.card.name}}
+        <text style='color:red'>    -￥{{cart.card.card.reduceCost / 100}}</text>
+      </view>
+      <view class='order_quantity' style='display:flex'>
+        <view style='margin-right:10rpx;color:#999'>选择</view>
+        <image src='https://assets.jiejie.io/internet/right11.png' class='card_imgae'></image>
+      </view>
+    </view>
+    <view class='order_line'></view>
+    <view class='order_xiaoji nav'>
+      <view class='order_quantity'>共{{cart.sum}}件商品</view>
+      <view class='order_total'>小计：
+        <text style="color: {{cart.selected? 'red' : 'rgb(192,192,192)'}}" wx:if="{{cart.card == null}}">￥{{formateUtil.formatPrice(cart.total)}}</text>
+        <text style="color: {{cart.selected? 'red' : 'rgb(192,192,192)'}}" wx:if="{{cart.card !== null}}">￥{{formateUtil.formatPrice(cart.total - cart.card.card.reduceCost / 100)}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!--送至  -->
+  <view class='distribution' wx:if="{{carts.length != 0 && defaultAddress != null}}">
+    <view class='distribution-address'>
+      <text class="distribution-arrive">送至：</text>
+      <text class="distribution-address-detail">{{defaultAddress.province}} {{defaultAddress.city}} {{defaultAddress.county}}{{defaultAddress.road}}</text>
+    </view>
+  </view>
+  <!-- 确认订单 -->
+  <view class="bottom_total" wx:if="{{carts.length != 0}}">
+    <view class="row">
+      <text>合计：</text>
+      <text class="price">￥{{formateUtil.formatPrice(totalPrice)}}</text>
+      <!-- <form bindsubmit='CreateCartOrder' report-submit="true">
+        <button class="button-red" disabled="{{totalPrice == 0 ? 'disabled' : ''}}" formType="submit">提交订单</button>
+      </form> -->
+
+      <view class='button-red'>提交订单</view>
+      <form bindsubmit="CreateCartOrder" report-submit="true">
+
+        <button formType="submit" class='btn'>
+          <view class="vv">
+            <form bindsubmit="formSubmit" report-submit="true">
+              <button formType="submit" class='btn'>
+                <view class="vv">
+                  <form bindsubmit="formSubmit" report-submit="true">
+                    <button formType="submit" class='btn'>
+                      <view class="vv">
+                        <form bindsubmit="formSubmit" report-submit="true">
+                          <button formType="submit" class='btn'>
+                            <view class="vv">
+                              <form bindsubmit="formSubmit" report-submit="true">
+                                <button formType="submit" class='btn' bindtap='formSubmit'>
+                                  <view class="vv">
+                                    <form bindsubmit="formSubmit" report-submit="true">
+                                      <button formType="submit" class='btn' bindtap='formSubmit'>
+                                        <view class="vv">
+                                          <form bindsubmit="formSubmit" report-submit="true">
+                                            <button formType="submit" class='btn' bindtap='formSubmit'>
+                                              <view class="vv">
+                                                <form bindsubmit="formSubmit" report-submit="true">
+                                                  <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                    <view class="vv">
+                                                      <form bindsubmit="formSubmit" report-submit="true">
+                                                        <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                          <view class="vv">
+                                                            <form bindsubmit="formSubmit" report-submit="true">
+                                                              <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                <view class="vv">
+                                                                  <form bindsubmit="formSubmit" report-submit="true">
+                                                                    <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                      <view class="vv">
+                                                                        <form bindsubmit="formSubmit" report-submit="true">
+                                                                          <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                            <view class="vv">
+                                                                              <form bindsubmit="formSubmit" report-submit="true">
+                                                                                <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                  <view class="vv">
+                                                                                    <form bindsubmit="formSubmit" report-submit="true">
+                                                                                      <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                        <view class="vv">
+                                                                                          <form bindsubmit="formSubmit" report-submit="true">
+                                                                                            <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                              <view class="vv">
+                                                                                                <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                  <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                    <view class="vv">
+                                                                                                      <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                        <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                          <view class="vv">
+                                                                                                            <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                              <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                <view class="vv">
+                                                                                                                  <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                    <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                      <view class="vv">
+                                                                                                                        <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                          <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                            <view class="vv">
+                                                                                                                              <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                  <view class="vv">
+                                                                                                                                    <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                      <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                        <view class="vv">
+                                                                                                                                          <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                            <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                              <view class="vv">
+                                                                                                                                                <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                  <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                    <view class="vv">
+                                                                                                                                                      <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                        <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                          <view class="vv">
+                                                                                                                                                            <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                              <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                <view class="vv">
+                                                                                                                                                                  <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                                    <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                      <view class="vv">
+                                                                                                                                                                        <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                                          <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                            <view class="vv">
+                                                                                                                                                                              <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                                                <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                                  <view class="vv">
+                                                                                                                                                                                    <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                                                      <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                                        <view class="vv">
+                                                                                                                                                                                          <form bindsubmit="formSubmit" report-submit="true">
+                                                                                                                                                                                            <button formType="submit" class='btn' bindtap='formSubmit'>
+                                                                                                                                                                                              <view class="vv button-red">
+                                                                                                                                                                                                提交订单
+                                                                                                                                                                                              </view>
+                                                                                                                                                                                            </button>
+                                                                                                                                                                                          </form>
+                                                                                                                                                                                        </view>
+                                                                                                                                                                                      </button>
+                                                                                                                                                                                    </form>
+                                                                                                                                                                                  </view>
+                                                                                                                                                                                </button>
+                                                                                                                                                                              </form>
+                                                                                                                                                                            </view>
+                                                                                                                                                                          </button>
+                                                                                                                                                                        </form>
+                                                                                                                                                                      </view>
+                                                                                                                                                                    </button>
+                                                                                                                                                                  </form>
+                                                                                                                                                                </view>
+                                                                                                                                                              </button>
+                                                                                                                                                            </form>
+                                                                                                                                                          </view>
+                                                                                                                                                        </button>
+                                                                                                                                                      </form>
+                                                                                                                                                    </view>
+                                                                                                                                                  </button>
+                                                                                                                                                </form>
+                                                                                                                                              </view>
+                                                                                                                                            </button>
+                                                                                                                                          </form>
+                                                                                                                                        </view>
+                                                                                                                                      </button>
+                                                                                                                                    </form>
+                                                                                                                                  </view>
+                                                                                                                                </button>
+                                                                                                                              </form>
+                                                                                                                            </view>
+                                                                                                                          </button>
+                                                                                                                        </form>
+                                                                                                                      </view>
+                                                                                                                    </button>
+                                                                                                                  </form>
+                                                                                                                </view>
+                                                                                                              </button>
+                                                                                                            </form>
+                                                                                                          </view>
+                                                                                                        </button>
+                                                                                                      </form>
+                                                                                                    </view>
+                                                                                                  </button>
+                                                                                                </form>
+                                                                                              </view>
+                                                                                            </button>
+                                                                                          </form>
+                                                                                        </view>
+                                                                                      </button>
+                                                                                    </form>
+                                                                                  </view>
+                                                                                </button>
+                                                                              </form>
+                                                                            </view>
+                                                                          </button>
+                                                                        </form>
+                                                                      </view>
+                                                                    </button>
+                                                                  </form>
+                                                                </view>
+                                                              </button>
+                                                            </form>
+                                                          </view>
+                                                        </button>
+                                                      </form>
+                                                    </view>
+                                                  </button>
+                                                </form>
+                                              </view>
+                                            </button>
+                                          </form>
+                                        </view>
+                                      </button>
+                                    </form>
+                                  </view>
+                                </button>
+                              </form>
+                            </view>
+                          </button>
+                        </form>
+                      </view>
+                    </button>
+                  </form>
+                </view>
+              </button>
+            </form>
+          </view>
+        </button>
+
+      </form>
+    </view>
+  </view>
+</view>
+
+
+
+<!--屏幕背景变暗的背景  -->
+<view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+<!--弹出框  -->
+<view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+  <view class='card_header'>
+    <view class='card_header_left'>优惠卷</view>
+    <view class='card_header_right' bindtap='checkCard_no' data-cartGroupId="{{cardLists.cartGroupId}}">不使用优惠卷</view>
+    <view class='card_header_right1' bindtap='hideModal'>
+      <image src='../../images/shop/close.png'></image>
+    </view>
+  </view>
+  <view class='shop-box'>
+    <view class='right'>
+      <view class='tabs-box'>
+        <block wx:for="{{['可使用卡卷','  可兑换卡卷']}}" wx:key="id">
+          <view class='tabs-item {{currTabsIndex == index ? "selected" : ""}}' bindtap='onTabsItemTap' data-index="{{index}}">
+            {{item}}
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+  <scroll-view class='card_body' scroll-y="true">
+    <view class='order-detail-box'>
+      <view hidden='{{currTabsIndex != 0}}' style='height:100%'>
+        <view class='member_tishi '>
+          <view class='tishi_total'>温馨提示：未满足优惠卷使用条件将无法查询并使用，刚兑换成功的用户请耐心等待一会后重新打开本窗口O(∩_∩)O～</view>
+        </view>
+        <template is="stamp01" data="{{...cardLists}}" />
+        <view style='height:200rpx'></view>
+      </view>
+      <view hidden='{{currTabsIndex != 1}}' style='height:100%'>
+        <view class='member_points'>
+          <view>本店积分</view>
+          <image src='../../images/order-details/yuanbao.png' class='yuanbao'></image>
+          <view class='yuanbao_jifen'>{{member.points}}</view>
+        </view>
+        <view class='member_tishi '>
+          <view class='tishi_total'>温馨提示：兑换卡卷并领取成功后有一定延迟，优惠卷没有到账的用户请耐心等待一会O(∩_∩)O～</view>
+        </view>
+        <template is="stamp01" data="{{...exchangeCardLists}}" />
+
+        <view style='height:200rpx'></view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='card_footer'>
+  </view>
+</view>

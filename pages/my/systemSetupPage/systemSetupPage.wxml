@@ -1,0 +1,21 @@
+<view>
+  <view style='margin-top:20rpx'></view>
+  <!-- <view class='lineviewtwo'></view> -->
+  <view class='thirdlayout' bindtap='bindTabVersion'>
+    <view class='thirdlayout'>
+      <text class='secondfontstyle'>版本信息</text>
+    </view>
+    <view class='fourthlayout'>
+      <image src='https://assets.jiejie.io/internet/2.png' class='thirdimagestyle'></image>
+    </view>
+  </view>
+  <view style='margin-top:20rpx'></view>
+   <view class='thirdlayout' wx:if='{{can == true}}'>
+    <view class='thirdlayout'>
+      <picker style='width:100%' bindchange="changeCountry" value="{{countryIndex}}" range="{{countryList}}">
+        <text class='secondfontstyle'>管理员所在区域         {{area.name}}</text>
+      </picker>
+    </view>
+  </view> 
+  <!-- <view class='lineviewtwo'></view> -->
+</view>

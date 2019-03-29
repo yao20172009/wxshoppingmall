@@ -1,0 +1,52 @@
+<template name="shareView">
+  <view class="b1" hidden='{{flag}}'>
+    <view class="t_w">
+      <view class="t_image">
+        <image class="t_image1" src="https://assets.jiejie.io/internet/share01.png"></image>
+      </view>
+      <view class="t_image_x" bindtap='lookedShare'>
+        <image class="t_image1_x" src="https://assets.jiejie.io/internet/close.png"></image>
+      </view>
+      <view class="b2">
+        <view class='v1_Title'>送红包了！送红包了！</view>
+        <view class="v1">将此页面或者活动详情页面分享给您的好友或者其他人，并通过您分享的入口进入购买成功完成首次订单后，单方(邀请人)或双方都有积分返利哦！</view>
+        <block wx:if="{{shareReward.kind == 2}}">
+          <view class="btn1" bindtap="b">
+            <p class="p1">{{name}}</p>
+            <p class="p2">本店已开启邀请福利</p>
+          </view>
+          <view class="btn2" bindtap="b">
+            <p class="p1">奖励</p>
+            <p class="p2" wx:if="{{shareReward.both == false}}">双方奖励被邀请人完成首单金额{{shareReward.percent}}%的积分</p>
+            <p class="p2" wx:if="{{shareReward.both == true}}">双方奖励被邀请人完成首单金额{{shareReward.percent}}%的积分</p>
+          </view>
+        </block>
+
+        <block wx:if="{{shareReward.kind == 1}}">
+          <view class="btn1" bindtap="b">
+            <p class="p1">{{name}}</p>
+            <p class="p2">本店已开启邀请福利</p>
+          </view>
+          <view class="btn2" bindtap="b">
+            <p class="p1">奖励</p>
+            <p class="p2" wx:if="{{shareReward.both == true}}">邀请人与被邀请人各奖励{{shareReward.points}}积分</p>
+            <p class="p2" wx:if="{{shareReward.both == false}}">邀请人奖励{{shareReward.points}}积分</p>
+          </view>
+        </block>
+
+        <block wx:if="{{shareReward.kind == 0}}">
+          <view class="btn1 btn_no">
+            <p class="p1">{{name}}</p>
+            <p class="p2">本店未开启邀请福利</p>
+          </view>
+          <view class="btn2 btn_no">
+            <p class="p1">奖励</p>
+            <p class="p2">本店未开启邀请福利</p>
+          </view>
+        </block>
+
+        <button open-type='share' hover-class='none' class='btn_share'>邀请好友</button>
+      </view>
+    </view>
+  </view>
+</template>

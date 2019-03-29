@@ -1,0 +1,22 @@
+/**app.wxss**/
+
+page {
+  background-color:#fff;
+  font-family:"Microsoft Yahei, Arial, Helvetica, sans-serif";
+  height:100%;
+  width:100%;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 50rpx 0;
+  box-sizing: border-box;
+  position: relative;
+  font-family: "Source Han Sans CN";
+  font-weight: 700;
+  padding-bottom: 120rpx;
+}

@@ -1,0 +1,26 @@
+<scroll-view class='containers1' scroll-y="true">
+  <block wx:for="{{items}}" wx:key="" data-index="{{index}}">
+    <view class="content-header2" bindtap='goToCards' data-item='{{item.node}}'>
+      <view class='header-left'>
+        <view class='header-left-yuanjiao'>
+          <image src='{{item.node.supplier.logo !== null ? item.node.supplier.logo : "https://assets.jiejie.io/internet/weishangchuan.jpeg"}}'></image>
+        </view>
+      </view>
+      <view class='header-center'>
+        <view class='headerText noHang'>商家名称　{{item.node.supplier.name}}</view>
+        <view class='huiseText'>我的积分
+          <image src='../../images/order-details/yuanbao.png' class='yuanbao'></image>
+          <view class='yuanbao_jifen'>{{item.node.points}}</view>
+        </view>
+        <view class='huiseText'>我的等级
+          <image src='../../images/order-details/vip.png' class='yuanbao'></image>
+          <view class='yuanbao_lv'>{{item.node.level}}</view>
+        </view>
+      </view>
+      <view class='header-right' bindtap='bindCollection'>
+        <view class='header-right-title'>{{item.node.haveCard == true ? "领卷" : ""}}</view>
+      </view>
+    </view>
+  </block>
+    <view class='center center_bottom' wx:if='{{theEnd == true}}'>已经到底了哦!</view>
+</scroll-view>

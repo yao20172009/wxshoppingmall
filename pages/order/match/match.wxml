@@ -1,0 +1,96 @@
+<view>
+  <button bindtap='bindChangeOrder'></button>
+</view>
+
+<view class='changeOrder_page'>
+  <view class='changeOrder_header'></view>
+  <view class='changeOrder_body'>
+    <view class='header_title'>原商品及数量</view>
+    <view class="item">
+      <view class='cartList'>
+        <view class="name ellipsis inside-content">
+          <view class='order-name name-bg {{item.promotionProduct.active == true ? "checkName" : ""}}' bindtap='checkItem_old'>{{item.promotionProduct.product.name}}</view>
+          <view class="lists_add right-content" data-id='{{item.id}}' data-index="{{index}}" bindtap='jianOldItem'>
+            <view class='c_puls' wx:if="{{item.promotionProduct.active == true}}">
+              <image src='../../../images/shop/xtb2.png'></image>
+            </view>
+          </view>
+          <view class="total right-content order-price" wx:if="{{item.promotionProduct.active == true}}">￥{{item.promotionProduct.specialPrice * item.promotionProduct.quantity}}</view>
+        </view>
+        <view class="lists_add right-content" bindtap="addOldItem" data-id='{{item.id}}' data-index="{{index}}" wx:if="{{item.promotionProduct.active == true}}">
+          <view class='c_puls'>
+            <image src='../../../images/shop/xtb1.png'></image>
+          </view>
+        </view>
+        <view class="num right-content" wx:if="{{item.promotionProduct.active == true}}">
+          <view class='c_puls'>{{item.promotionProduct.quantity}}</view>
+        </view>
+      </view>
+    </view>
+    <view style='margin:20rpx'></view>
+    <view class='header_title'>可分配商品数量</view>
+    <view class='cartList' wx:for="{{promotionProduct}}" wx:key="" wx:if="{{promotionProduct !== null}}" data-index="{{index}}">
+      <view class="name ellipsis inside-content">
+        <view class='order-name  name-bg {{item.active == true ? "checkName" : ""}}' bindtap='checkItem' data-item="{{item}}" data-index="{{index}}">{{item.product.name}}</view>
+        <view class="lists_add right-content" data-id='{{item.id}}' data-index="{{index}}" data-quantity="{{item.quantity}}" bindtap='jianItem' wx:if="{{item.active == true}}">
+          <view class='c_puls'>
+            <image src='../../../images/shop/xtb2.png'></image>
+          </view>
+        </view>
+        <view class="total right-content order-price" wx:if="{{item.active == true}}">￥{{item.specialPrice * item.quantity}}</view>
+      </view>
+      <view class="lists_add right-content" bindtap="addItem" data-id='{{item.id}}' data-index="{{index}}" wx:if="{{item.active == true}}">
+        <view class='c_puls'>
+          <image src='../../../images/shop/xtb1.png'></image>
+        </view>
+      </view>
+      <view class="num right-content" wx:if="{{item.active == true}}">
+        <view class='c_puls'>{{item.quantity}}</view>
+      </view>
+    </view>
+    <!-- <view class='header_title header_footer'>商品总数量  {{nums}}</view> -->
+  </view>
+  <view class='changeOrder_footer'>
+     <form bindsubmit='saveChange' report-submit="true">
+      <button type="primary" class="save-btn" formType="submit">保存修改</button>
+    </form> 
+
+    <!-- <form bindsubmit="saveChange" report-submit="true">
+      <button formType="submit" class='btn'>
+        <view class="vv">
+          <form bindsubmit="formSubmit" report-submit="true">
+            <button formType="submit" class='btn'>
+              <view class="vv">
+                <form bindsubmit="formSubmit" report-submit="true">
+                  <button formType="submit" class='btn'>
+                    <view class="vv">
+                      <form bindsubmit="formSubmit" report-submit="true">
+                        <button formType="submit" class='btn'>
+                          <view class="vv">
+                            <form bindsubmit="formSubmit" report-submit="true">
+                              <button formType="submit" class='btn' bindtap='formSubmit'>
+                                <view class="vv">
+                                  <form bindsubmit="formSubmit" report-submit="true">
+                                    <button formType="submit" class='btn' bindtap='formSubmit'>
+                                      <view class="vv save-btn">
+                                        保存修改
+                                      </view>
+                                    </button>
+                                  </form>
+                                </view>
+                              </button>
+                            </form>
+                          </view>
+                        </button>
+                      </form>
+                    </view>
+                  </button>
+                </form>
+              </view>
+            </button>
+          </form>
+        </view>
+      </button>
+    </form> -->
+  </view>
+</view>

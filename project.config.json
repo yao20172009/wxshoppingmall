@@ -1,0 +1,79 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"autoAudits": false
+	},
+	"compileType": "miniprogram",
+	"libVersion": "2.3.0",
+	"appid": "wx6d715215b71e3b38",
+	"projectname": "%E8%BF%9B%E8%B4%A7%E7%AE%A1%E5%AE%B6",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "扫描二维码",
+					"pathName": "pages/index/index",
+					"query": "scene=QXJlYToyNzc5",
+					"scene": "1011"
+				},
+				{
+					"id": 1,
+					"name": "扫描二维码测试区",
+					"pathName": "pages/index/index",
+					"query": "scene=QXJlYTozMjM2",
+					"scene": "1011"
+				},
+				{
+					"id": -1,
+					"name": "发现蓝小程序主入口",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": "1001"
+				},
+				{
+					"id": -1,
+					"name": "附近小程序列表",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": "1026"
+				},
+				{
+					"id": -1,
+					"name": "长安图片识别二维码",
+					"pathName": "pages/orderCenter/orderCenter",
+					"query": "scene=QXJlYToyNzc5",
+					"scene": "1012"
+				},
+				{
+					"id": 5,
+					"name": " 单人聊天会话中",
+					"pathName": "pages/eachEventDetail/eachEventDetail",
+					"query": "id='UHJvbW90aW9uUHJvZHVjdDo0MzU='",
+					"scene": "1007"
+				}
+			]
+		}
+	}
+}

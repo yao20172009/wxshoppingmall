@@ -1,0 +1,20 @@
+<import src="../../components/product/product2.wxml" />
+<import src="../../components/search/search.wxml" />
+
+<view class="">
+  <template is="pro_search" data="{{...search}}" />
+  <scroll-view scroll-y="true" bindscrolltolower="downloadMoreItem" bindscrolltoupper="updateItem" scroll-top="{{scrollTop}}">
+    <view class="child" bindtap="itemTap" wx:for="{{products}}" wx:for-item="proItem" data-idx="{{index}}" wx:key="unique" wx:if="{{products.length !== 0}}">
+      <template is="itemInfoTemplate" data="{{...proItem.node}}" />
+    </view>
+    <view class="cartList" wx:if="{{products.length == 0}}">
+      <image src="../../images/product/no_product1.png" />
+      <view style='width:80%;text-align:center'>{{one == true ? "请输入您要查找的商品,商店,分类" : "很抱歉,没有相关产品"}}~٩(๑❛ᴗ❛๑)۶~</view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 回到顶部按钮 -->
+<!-- <view class="go-top" bindtap="goTop">
+  <view class='go-top-text'>回到顶部</view>
+</view> -->

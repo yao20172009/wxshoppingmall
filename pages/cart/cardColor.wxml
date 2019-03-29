@@ -1,0 +1,228 @@
+<template name="stamp01">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp {{item.node.card.applyPromotion == false ? 'stamp02': 'stamp03'}} {{active == 'use' && item.node.card.active == false ? 'stamp06' : ''}}">
+      <!-- 左侧 -->
+      <view class='event_use' wx:if="{{item.node.card.applyPromotion == true}}">可用于活动结算</view>
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use' || active == 'wait'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">{{item.node.card.kindName}}</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'wait'}}">兑换未领</view>
+          <view class="t2 t" wx:if="{{active == 'wait'}}">{{item.node.expireAtDate}}</view>
+
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'wait'}}">
+            <text>立即领取</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>
+
+<template name="stamp02">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp stamp02">
+      <!-- 左侧 -->
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">代金卷</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>
+
+<template name="stamp03">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp stamp03">
+      <!-- 左侧 -->
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">代金卷</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>
+
+<template name="stamp04">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp stamp04">
+      <!-- 左侧 -->
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">代金卷</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>
+
+<template name="stamp05">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp stamp05">
+      <!-- 左侧 -->
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">代金卷</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>
+
+<template name="stamp06">
+  <view class="coupon-list" wx:for='{{cards}}' wx:key="" data-index="{{index}}" bindtap='checkCard' data-item='{{item.node}}' data-cartGroupId="{{cartGroupId}}">
+    <view class="item stamp stamp06">
+      <!-- 左侧 -->
+      <view class="float-li t1">
+        <view class="coupon-left">
+          <view class='coupon-left-price'>
+            <view class="t t1">￥</view>
+            <view class="t t2">{{item.node.card.reduceCost / 100}}</view>
+          </view>
+          <view class="t t3">{{item.node.card.name}}</view>
+          <view class="t t4" wx:if="{{active == 'use'}}">优惠券编号：{{item.node.code}}</view>
+          <view class="t t4" wx:if="{{active == 'created'}}">优惠剩余库存：{{item.node.card.inventory}}</view>
+        </view>
+      </view>
+      <!-- 右侧 -->
+      <view class="float-li-rig">
+        <view class="coupon-rig">
+          <view class="t1 t">代金卷</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">过期时间</view>
+          <view class="t2 t" wx:if="{{active == 'use'}}">{{item.node.expireAtDate}}</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">需要积分</view>
+          <view class="t2 t" wx:if="{{active == 'created'}}">{{item.node.points}}</view>
+
+          <view class="t3 t" wx:if="{{active == 'use'}}">
+            <text>立即选择</text>
+          </view>
+          <view class="t3 t" wx:if="{{active == 'created'}}">
+            <text>立即兑换</text>
+          </view>
+        </view>
+      </view>
+      <i></i>
+    </view>
+  </view>
+</template>

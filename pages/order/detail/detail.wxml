@@ -1,0 +1,339 @@
+<wxs src="../../../utils/common.wxs" module="formateUtil" />
+<!--收货 地址 -->
+<view class='address_box'>
+  <view class='address_left'>
+    <image src='https://assets.jiejie.io/internet/12.png'></image>
+  </view>
+  <view class='address_right'>
+    <view class='address_name_phone'>
+      <view class='address_name'>{{order.receiver}}</view>
+      <view class='address_phone'>{{order.phone}}</view>
+    </view>
+    <view class='address_address'>{{order.address}}</view>
+  </view>
+</view>
+
+<view class='shop-box'>
+  <view class='right'>
+    <view class='shop-name' style='width:100%;overflow: hidden;'>
+      支付方式
+      <view class='pay-awy-title'>(默认货到付款,订单未完成之前可更换)</view>
+    </view>
+  </view>
+</view>
+<block wx:if="{{order.paidAmount == 0}}">
+  <view class='orderNo' wx:if='{{order.status !== 5 && order.status !== 6}}'>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{payment}}" wx:key="{{}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" disabled='{{item.disable}}' />
+        <text class='radio_text {{item.disable == true ? "disable" : ""}}'>{{item.value}}</text>
+      </label>
+    </radio-group>
+  </view>
+</block>
+<block wx:if='{{order.paidAmount !== 0}}'>
+  <view class='orderNo'>
+    <view class='pay_text' wx:if='{{order.status !== 5}}'>您已经使用了 微信支付 </view>
+    <view class='pay_text' wx:if='{{order.status == 5}}'>您已经 撤销订单
+    </view>
+  </view>
+</block>
+
+<block wx:if='{{order.paidAmount == 0 }}'>
+  <view class='orderNo'>
+    <view class='pay_text' wx:if='{{order.status == 5}}'>您已经 撤销订单
+    </view>
+    <view class='pay_text' wx:if='{{order.status == 6}}'>您已经使用了 货到付款
+    </view>
+  </view>
+</block>
+
+
+<!-- <view class='shop-box'>
+    <view class='right'>
+      <view class='shop-name'> 支付方式 </view>
+    </view>
+  </view>
+  <view class='orderNo'>
+    <view>您已经选择了货到付款</view>
+  </view> -->
+
+
+<view style='margin:20rpx'></view>
+<view class="containers1">
+  <!-- 店名 -->
+  <view class='shop-box item-border'>
+    <view class='left shop-image' bindtap="goToShop">
+      <image class="item-singleSelect" src='https://assets.jiejie.io/internet/shop13.png' />
+    </view>
+    <view class='right shop-right' bindtap="goToShop">
+      <view class='shop-name'> {{order.supplier.name}} </view>
+    </view>
+    <!-- <view class='shop-peidan' bindtap='goPeidan'>可配单</view> -->
+  </view>
+
+  <view class='shop-items' wx:for="{{order.items}}" wx:key="{{index}}">
+    <view class='item-left'>
+      <image src="{{item.product.imageUrls.length == 0 ? 'https://assets.jiejie.io/internet/weishangchuan.jpeg' : item.product.imageUrls[0]}}" mode="aspectFit"></image>
+    </view>
+    <view class='item-body'>
+      <view class='item-product'>{{item.productName}}</view>
+      <view class='item-quantity'>x{{item.quantity}} {{item.unit}}</view>
+    </view>
+    <view class='item-right'>
+      <view class='item-price'>￥ {{item.price}}</view>
+      <view class='shop-peidan' bindtap='goPeidan' data-itemId="{{item.id}}" data-item='{{item}}' wx:if="{{item.promotionProduct !== null && item.promotionProduct.substitutions !== null}}">可配单</view>
+    </view>
+
+  </view>
+
+  <view class='shop-cart shop-cart-order' wx:if="{{order != ''}}">
+    <!-- 活动提示 -->
+    <block>
+      <view wx:if="{{order.gifts.length > 0 }}">
+        <view class="content" wx:for="{{order.gifts}}" wx:key="">
+          <view class="giftName" style='background-color:red'>赠</view>
+          <view class="giftProduct middle">{{item.productName}}</view>
+          <view class="giftNumber middle">{{item.quantity}} {{item.unit}}</view>
+        </view>
+      </view>
+      <!-- <view class='discount' wx:if="{{formateUtil.formatPrice(order.originAmount - order.amount) > 0}}">
+          优惠
+          <text> ￥{{formateUtil.formatPrice(order.originAmount - order.amount)}}</text>
+        </view> -->
+      <view class='order_total1' wx:if='{{order.card == null }}'>
+        共 {{nums}} 件商品 总计
+        <text style='color:red'>￥{{formateUtil.formatPrice(order.amount)}}</text>
+      </view>
+      <view class='order_total1' wx:if='{{order.card !== null}}'>
+        共 {{nums}} 件商品 合计
+        <text style='color:#000'>￥{{formateUtil.formatPrice(order.originAmount)}}</text>
+      </view>
+      <view class='order_total1' wx:if="{{order.card !== null}}">
+        <!-- 优惠 -->
+        <text class='kindName'>{{order.card.kindName}}</text>
+        <text class='kindName' style='background:blue'>{{order.card.name}}</text>
+        <text> ￥-{{formateUtil.formatPrice(order.cardDiscountAmount)}}</text>
+      </view>
+    </block>
+    <!-- 合计 -->
+    <!-- <view class='order_xiaoji nav order_xiaoji1'> -->
+    <!-- <view class='order_quantity order_quantity1'>共 {{nums}} 件商品</view> -->
+    <view class='order_total1' wx:if="{{order.card !== null}}">
+      总计
+      <text>￥{{formateUtil.formatPrice(order.amount)}}</text>
+    </view>
+    <!-- </view> -->
+  </view>
+</view>
+
+<view style='margin:20rpx'></view>
+
+<view class='shop-box'>
+  <!-- <view class='left shop-image'>
+     <image class="item-singleSelect" src='/images/order-details/wxb.png' /> 
+  </view> -->
+  <view class='right'>
+    <!-- <view class='shop-name'> 订单详情 </view> -->
+    <view class='tabs-box'>
+      <block wx:for="{{['订单详情','  评价']}}" wx:key="id">
+        <view class='tabs-item {{currTabsIndex == index ? "selected" : ""}}' bindtap='onTabsItemTap' data-index="{{index}}">
+          {{item}}
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
+<view class='order-detail-box'>
+  <view hidden='{{currTabsIndex != 0}}'>
+    <view class='orderNo'>
+      <view class='order_text'>订单编号</view>
+      <view class='order_no'>{{order.no}}</view>
+    </view>
+    <view class='orderNo'>
+      <view class='order_text'>下单时间</view>
+      <view class='order_no'>{{order.createdAt}}</view>
+    </view>
+    <view class='orderNo'>
+      <view class='order_text'>订单状态</view>
+      <view class='order_no'>{{order.statusName}} {{order.cancelApplication !== null ? "---" + "撤销"+order.cancelApplication.statusDesc : "" }}
+      </view>
+    </view>
+    <view class='orderNo'>
+      <view class='order_text'>订单备注</view>
+      <view class='order_no'>{{order.note == "" ? "无备注" : order.note}}</view>
+    </view>
+    <view class='orderNo' wx:if='{{order.status == 6}}' bindtap='showDialogBtn'>
+      <view class='order_text'>获得积分</view>
+      <view class='order_no'>
+        <image src='../../../images/order-details/yuanbao.png' class='yuanbao'></image>
+        <view class='yuanbao_jifen'>{{order.gainedPoints}}</view>
+        <view class='duihuan'>积分兑换</view>
+      </view>
+    </view>
+  </view>
+  <view hidden='{{currTabsIndex != 1}}'>
+    <template is="msgItem" data="{{...fuwu}}" wx:if="{{order.rated == true}}"></template>
+    <view wx:if="{{order.rated !== true && order.status !== 6}}">
+      <view class='updatePingjia_no'>订单未完成</view>
+    </view>
+    <view wx:if="{{order.rated == true}}">
+      <view class='updatePingjia' style='margin-top:20rpx' bindtap='updatePingjia'>修改评价</view>
+    </view>
+    <view wx:if="{{order.rated == false && order.status == 6}}">
+      <view class='updatePingjia_no goPingjia' bindtap='goToPingjia'>去评价
+        <image src='https://assets.jiejie.io/internet/right11.png'></image>
+      </view>
+    </view>
+  </view>
+  <view hidden='{{currTabsIndex !=2}}'>
+    <view class='orderNo item-border'>
+      <view class='order_text'>订单留言</view>
+      <view class='order_no order_notes'>
+        <input placeholder='请输入您要嘱咐的事情' bindinput='setNotes' value="{{message_text}}"></input>
+        <text class='order_sendNotes' bindtap='sendNotes'>发送</text>
+      </view>
+    </view>
+    <view class='orderNo' wx:for="{{order.orderNotes.edges}}" wx:key="{{index}}">
+      <view style='margin:50rpx;text-align:center;width:100%;color:#999;font-size:32rpx' wx:if="{{order.orderNotes.edges.length == 0}}">没有任何留言</view>
+      <view class='order_text'>
+        <image class='order_text_avatar' src='{{item.node.user.avatar}}'></image>
+        <view class='order_text_name'>{{item.node.user.id == myId ? "我" : "客服"}}</view>
+      </view>
+      <view class='order_no order_text_centent'>{{item.node.content}}</view>
+    </view>
+  </view>
+</view>
+
+<view style='margin:20rpx'></view>
+
+<view class='footer'>
+  <view class='footer_right' wx:if="{{order.status !== 5 && order.status !== 6}}">
+    <button class='footer_del' type='warn' bindtap='openApplication' wx:if="{{order.cancelApplication == null}}">申请撤销</button>
+
+    <button class='footer_del' type='primary' wx:if="{{order.cancelApplication !== null && order.cancelApplication.status == 0}}" bindtap='waitProcessing'>{{order.cancelApplication.statusDesc}}</button>
+    <button class='footer_del' type='default' wx:if="{{order.cancelApplication !== null && order.cancelApplication.status == 1}}" disabled='true'>已撤销</button>
+    <button class='footer_del' type='warn' bindtap='openApplication' wx:if="{{order.cancelApplication.status == 2}}">申请撤销</button>
+    <button class='footer_del' type='default' disabled='{{order.cancelApplication !== null && order.cancelApplication.status == 0 ? true : false }}' bindtap='receiveOrder'>{{order.status == 6 ? "已收货" : "确认收货"}}</button>
+  </view>
+  <view class='footer_right' wx:if="{{order.status ==5}}">
+    <button class='footer_del' style='width:100%' disabled='true'>已撤销</button>
+    <!-- <button class='footer_del' type='default' disabled='true'>确认收货</button>  -->
+  </view>
+</view>
+<view style='height:300rpx'></view>
+
+
+<view class='toast-box' hidden='{{ifName}}'>
+  <view class='toastbg'></view>
+  <view class='showToast'>
+    <view class='toast-title'>
+      <text>备注信息</text>
+    </view>
+    <view class='toast-main'>
+      <view class='toast-input'>
+        <input placeholder='请输入备注信息' bindinput='setValue' value='{{noteUpdata}}'></input>
+      </view>
+    </view>
+    <view class='toast-button'>
+      <view class='button1'>
+        <button catchtap='closeBeizhu'>取消</button>
+      </view>
+      <view class='button2'>
+        <button catchtap='confirm'>确定</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class='toast-box' hidden='{{isApplication}}'>
+  <view class='toastbg'></view>
+  <view class='showToast'>
+    <view class='toast-title'>
+      <text>撤销理由</text>
+    </view>
+    <view class='totst-tishi' wx:if="{{order.card !== null}}">
+      <text>撤销订单后，该优惠券无法再次使用。</text>
+    </view>
+    <view class='toast-main'>
+      <view class='toast-input'>
+        <input placeholder='请输入您要撤销申请的理由' value='{{application_text}}' bindinput='setApplicationValue'></input>
+      </view>
+    </view>
+    <view class='toast-button'>
+      <view class='button1'>
+        <button catchtap='closeApplication'>取消</button>
+      </view>
+      <view class='button2'>
+        <form bindsubmit='sendApplication' report-submit="true">
+          <button formType="submit">确定</button>
+        </form>
+      </view>
+    </view>
+  </view>
+</view>
+
+<template name="msgItem">
+  <block wx:for='{{evaluate_contant}}' wx:key='' wx:for-index='idx'>
+    <view class='orderNo'>
+      <view class='order_text'>{{item}}</view>
+      <view class='order_no'>
+        <block wx:for="{{stars}}" wx:key=''>
+          <image class="star-image" style="left: {{item*80}}rpx" src="{{scores[idx] > item ? selectedSrc : normalSrc}}">
+          </image>
+        </block>
+      </view>
+    </view>
+  </block>
+  <view class='orderNo'>
+    <view class='order_text'>我的评论</view>
+    <view class='order_no'>{{comment == "" ? "..." : comment}}</view>
+  </view>
+
+  <view class="picture_list" wx:if="{{images.length !== 0}}">
+    <view wx:for="{{images}}" class="picture_item" wx:key="{{index}}" bindtap='pImage' data-index="{{index}}">
+      <image src="{{item.path_server}}" mode="aspectFill"></image>
+    </view>
+  </view>
+</template>
+
+<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modal-dialog" wx:if="{{showModal}}">
+  <view class="modal-title">领取奖励</view>
+  <view class="modal-content">
+    <view class='modal-content-title'>您本次获得了
+      <image src='../../../images/order-details/yuanbao.png' class='yuanbao modal-yuanbao'></image>
+      <view class='yuanbao_jifen mode-yuanbao_jifen'>{{order.gainedPoints}}</view>
+      ，目前拥有
+      <image src='../../../images/order-details/yuanbao.png' class='yuanbao modal-yuanbao'></image>
+      <view class='yuanbao_jifen mode-yuanbao_jifen'>{{member.points}}</view>
+      ，您可以选择兑换以下物品：</view>
+  </view>
+  <scroll-view class='modal-content-page' scroll-y="true">
+    <view class='modal-content-body'>
+      <view wx:if="{{cards.length == 0}}" class='cards_no'>暂时没有可兑换的卡卷！</view>
+      <!-- <block wx:for="{{cards}}" wx:key='' wx:if="{{cards.length !== 0}}" wx:for-index="idx"> -->
+      <!-- <view class='model-image {{idx == checkIndex&&choose == true ? "image-active" : ""}}' bindtap='checkCard' data-card='{{item}}' data-index="{{idx}}">{{item.node.reduceCost / 100}}元{{item.node.kindName}}{{item.node.applyPromotion == true ? "(活动可用)" : ""}}</view> -->
+      <view wx:if="{{cards.length !== 0}}">
+        <radio-group class="radio-group" bindchange="checkboxChange">
+          <label class="checkbox" wx:for="{{cards}}" wx:key='' wx:if="{{cards.length !== 0}}" wx:for-index="idx" data-index='{{index}}'>
+            <radio value="{{item.node.id}}" checked="{{item.node.checked}}" />
+            <view class='model-image1 {{item.node.id == cardId? "image-active" : ""}}' data-card='{{item}}' data-index="{{idx}}">{{item.node.reduceCost / 100}}元{{item.node.kindName}}{{item.node.applyPromotion == true ? "(活动可用)" : ""}}</view>
+          </label>
+        </radio-group>
+      </view>
+      <!-- </block> -->
+    </view>
+  </scroll-view>
+  <view class='mode-xiaohao'>
+    <view style='margin-right:20rpx;'>消耗积分</view>
+    <image src='../../../images/order-details/yuanbao.png' class='yuanbao'></image>
+    <view class='yuanbao_jifen'>{{usePoints}}</view>
+  </view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+    <!-- <view class="btn-confirm {{usePoints == 0 ? 'btn-display' : '' }}" bindtap="onConfirm" data-status="confirm">兑换</view>
+  </view> -->
+    <view class="btn-confirm {{usePoints == 0 ? 'btn-display' : '' }}" bindtap="onConfirms" data-status="confirm">兑换</view>
+  </view>
+</view>

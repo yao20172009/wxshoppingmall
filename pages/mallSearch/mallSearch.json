@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "搜索",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#F6F8F8",
+    "onReachBottomDistance": 50
+}

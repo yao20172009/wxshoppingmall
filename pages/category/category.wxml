@@ -1,0 +1,309 @@
+<wxs module="filters" src="../../components/toFiex2.wxs"></wxs>
+<import src="../../components/rates/rates.wxml" />
+<import src="../../components/shareView/shareView.wxml" />
+
+<import src="../cart/cardColor.wxml" />
+<template is="shareView" data="{{...sharePage}}" />
+
+<!-- <button class='share_btn' open-type='share' title="签到" hover-class='none'>
+  签
+</button>  -->
+
+<view class="drawer_screen" bindtap="powerDrawer" data-statu="close" wx:if="{{showModalStatus}}">
+</view>
+<!--content-->
+<!--使用animation属性指定需要执行的动画-->
+<view animation="{{animationData}}" class="drawer_attr_box" wx:if="{{showModalStatus}}">
+  <!--drawer content-->
+  <view class="drawer_content">
+    <text class="drawer_title">{{item.name}} {{item.num}} {{item.unit}}</text>
+  </view>
+</view>
+
+<view class="containers">
+  <view class="content-header">
+    <view class='header-left'>
+      <view class='header-left-yuanjiao'>
+        <image src='{{store.logo !== null ? store.logo : "https://assets.jiejie.io/internet/weishangchuan.jpeg"}}'></image>
+      </view>
+    </view>
+    <view class='header-center'>
+      <view class='headerText'>欢迎光临
+      <!-- ，<text class='headerText_share' bindtap='openShareView'>分享福利</text> -->
+      </view>
+      <view class='huiseText'>主营{{store.industryName}}，{{store.businesses}}</view>
+
+      <!-- <text class='headerText'>欢迎光临</text> -->
+    </view>
+    <view class='header-right' bindtap='bindCollection'>
+      <image class='shoucangImg' src='https://assets.jiejie.io/internet/shoucang.png' wx:if="{{followed !== true}}"></image>
+      <image class='shoucangImg' src='https://assets.jiejie.io/internet/yishoucang.png' wx:if="{{followed == true}}"></image>
+      <!-- <view class='headerText' wx:if="{{followed !== true}}">加入关注</view>
+      <view class='headerText' wx:if="{{followed == true}}">已关注</view> -->
+    </view>
+  </view>
+
+  <view class='tabs-box'>
+    <block wx:for="{{['商品','评价  ' + fuwu.comment_num, '领卷']}}" wx:key="id">
+      <view class='tabs-item {{currTabsIndex == index ? "selected" : ""}}' bindtap='onTabsItemTap' data-index="{{index}}">
+        <text class='{{currTabsIndex == index ? "selected1" : ""}}'>{{item}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="content-container">
+    <view class='order-detail-box'>
+      <view hidden='{{currTabsIndex != 0}}'>
+        <!-- 侧边栏 -->
+        <scroll-view class="classify-container" scroll-y="true">
+          <view class="classify {{classifySeleted==classify.id?'active':''}}" wx:for="{{categories}}" wx:for-item="classify" wx:key="id" data-id="{{classify.id}}" data-name="{{classify.name}}" bindtap="tapClassify">
+            <view class="name">
+              <!-- <image src='/images/shop/active.png' wx:if="{{classify.isPromotion == true}}"></image> -->
+              {{classify.name}}
+            </view>
+          </view>
+        </scroll-view>
+        <!-- 产品 -->
+        <scroll-view class="goods-container" scroll-y="true">
+          <view class="goods-top" wx:if="{{products.length == 0}}">
+            暂时没有数据
+          </view>
+          <view class="goods1" wx:for="{{products}}" wx:key="">
+            <view class='name_img' bindtap='bindGoto_detail' data-item="{{item}}" data-id="{{item.node.id}}">
+              <image mode='aspectFit' src="{{item.node.imageUrls.length !== 0 ? item.node.imageUrls[0] : 'https://assets.jiejie.io/internet/weishangchuan.jpeg'}}"></image>
+            </view>
+            <view class='name_price1' bindtap='bindShowActive' data-item="{{item}}" data-index="{{index}}">
+              <view class="name1 ellipsis">
+                <text>{{item.node.name}}</text>
+                <!-- <rich-text nodes="{{item.data.nodes}}"></rich-text> -->
+              </view>
+              <view class="price1" data-index="{{index}}">
+                <text class='text_left text_KindDesc'>{{item.node.kindName}}</text>
+              </view>
+              <view class="price1" data-index="{{index}}">
+                <text class='text_right'>￥{{item.node.price}} <text style='color:#000;font-size:28rpx;font-weight:0;'>/{{item.node.unit}}</text></text>
+              </view>
+            </view>
+            <!-- 图标加 -->
+            <view class='add1' bindtap='bindShowActive' data-statu="open" data-item="{{item}}" data-index="{{index}}" data-currentStatu="{{currentStatu}}" wx:if="{{item.node.selected !== true}}">
+              <image class="item_img" src="https://assets.jiejie.io/internet/tb3.png" background-size="cover" bindtap='bindShowActive' data-statu="open" data-item="{{item}}" data-index="{{index}}" data-currentStatu="{{currentStatu}}"></image>
+            </view>
+            <!-- 加减 -->
+            <view class='product_stepper' wx:if="{{item.node.selected == true}}">
+              <image src='https://assets.jiejie.io/internet/xtb2.png' data-id='{{item.cart.id}}' data-index="{{index}}" bindtap='jianProductItem'></image>
+              <text>{{item.cart.quantity}}</text>
+              <image src='https://assets.jiejie.io/internet/xtb1.png' bindtap="addProductItem" data-id='{{item.cart.id}}' data-index="{{index}}"></image>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
+      <view hidden='{{currTabsIndex != 1}}'>
+        <scroll-view class='page_2' scroll-y='true'>
+          <view class='evaluate_header_box'>
+            <view class='evaluate_header'>
+              <view class='evaluate_header_num'>{{store.serviceRate}}</view>
+              <view class='evaluate_header_text'>商家评分</view>
+            </view>
+            <view class='evaluate_body'>
+              <view class='pingfen_left'>
+                <view>配送综合评分</view>
+                <view class='marginLeft20'>
+                  <!-- {{store.deliveryRate}} -->
+                  <block wx:for="{{fuwu.stars}}" wx:for-item="itemStr" wx:key=''>
+                    <image class="star-image" style="left: {{itemStr*80}}rpx" src="{{store.deliveryRate1 > itemStr ? fuwu.selectedSrc : fuwu.normalSrc}}">
+                    </image>
+                  </block>
+                  <view style='margin-left:10rpx;margin-top:5rpx'>{{store.deliveryRate}}</view>
+                </view>
+              </view>
+              <view class='pingfen_left'>
+                <view>商品综合评分</view>
+                <view class='marginLeft20'>
+                  <block wx:for="{{fuwu.stars}}" wx:for-item="itemStr" wx:key=''>
+                    <image class="star-image" style="left: {{itemStr*80}}rpx" src="{{store.productRate1 > itemStr ? fuwu.selectedSrc : fuwu.normalSrc}}">
+                    </image>
+                  </block>
+                  <view style='margin-left:10rpx;margin-top:5rpx'>{{store.productRate}}</view>
+                </view>
+              </view>
+            </view>
+          </view>
+          <template is="ratesLists" data="{{...fuwu}}" />
+        </scroll-view>
+      </view>
+      <view hidden='{{currTabsIndex != 2}}'>
+        <view class='page1'>
+          <view class='shop-box'>
+            <view class='right'>
+              <view class='tabs-box-2'>
+                <block wx:for="{{['兑换卡卷','  待领取']}}" wx:key="id">
+                  <view class='tabs-item-2 {{currTabsIndex2 == index ? "selected2" : ""}}' bindtap='onTabsItemTap2' data-index="{{index}}">
+                    {{item}}
+                  </view>
+                </block>
+              </view>
+            </view>
+          </view>
+          <view class='order-detail-box'>
+            <view hidden='{{currTabsIndex2 != 0}}' style='height:100%'>
+              <scroll-view class='containers' scroll-y="true">
+                <view style='margin:100rpx'></view>
+                <!-- <view wx:if="{{cardLists.cards.length == 0}}" class='cards_no'>暂时没有可兑换的卡卷！</view> -->
+                <view class='member_points'>
+                  <view>本店积分</view>
+                  <image src='../../images/order-details/yuanbao.png' class='yuanbao'></image>
+                  <view class='yuanbao_jifen'>{{member.points}}</view>
+                </view>
+                <view class='member_tishi ' wx:if="{{cardLists.cards.length !== 0}}">
+                  <view class='tishi_total'>温馨提示：兑换卡卷后需手动领取到卡包并且有一定延迟，优惠卷没有到账的用户请耐心等待一会O(∩_∩)O～</view>
+                </view>
+                <view wx:if="{{cardLists.cards.length == 0}}" class='cards_no'>暂时没有可兑换的卡卷！</view>
+                <template is="stamp01" data="{{...cardLists}}" />
+                <view wx:if="{{cardLists.cards.length !== 0}}" style='height:440rpx;width:100%;'></view>
+              </scroll-view>
+            </view>
+            <view hidden='{{currTabsIndex2 != 1}}' style='height:100%'>
+              <scroll-view class='containers' scroll-y="true" style='height:100%'>
+                <view style='margin:100rpx'></view>
+                <view class='member_tishi ' wx:if='{{withdCardLists.cards.length !== 0}}'>
+                  <view class='tishi_total'>温馨提示：亲爱的用户，您兑换了卡卷却没有领取喔，我们会为您保管24小时，如您没有及时领取，我们将会回收优惠卷以及返回您的积分！</view>
+                </view>
+                <view wx:if="{{withdCardLists.cards.length == 0}}" class='cards_no'>暂时没有已兑换未领取的卡卷！</view>
+                <template is="stamp01" data="{{...withdCardLists}}" />
+                <view style="width100%;height:440rpx;" wx:if='{{withdCardLists.cards.length !== 0}}'></view>
+              </scroll-view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 购物车列表 -->
+    <view class="cart-detail" hidden="{{!showCartDetail}}">
+      <view class="mask" bindtap="hideCartDetail"></view>
+      <scroll-view scroll-y="true" class="list">
+        <view class='list_header' wx:if="{{localList.length !== 0}}">
+          <view class='list_left'></view>
+          <view class='list_body' bindtap="deleteCart">
+            <image src='https://assets.jiejie.io/internet/del_del1.png'></image>
+            <view>清除购物车</view>
+          </view>
+        </view>
+        <view class="item">
+          <view wx:for="{{localList}}" wx:key="name" wx:for-item="order" class='cartList' data-index="{{index}}">
+            <view class="name ellipsis inside-content">
+              <view class='order-name'>{{order.product.name}}</view>
+              <view class="lists_add right-content" data-id='{{order.id}}' data-id='{{order.id}}' data-index="{{index}}" bindtap='jianCartIten'>
+                <view class='c_puls'>
+                  <image src='https://assets.jiejie.io/internet/xtb2.png'></image>
+                </view>
+              </view>
+              <view class="total right-content order-price">￥{{order.price * order.quantity}}</view>
+            </view>
+            <view class="lists_add right-content" bindtap="addCartItem" data-id='{{order.id}}' data-index="{{index}}">
+              <view class='c_puls'>
+                <image src='https://assets.jiejie.io/internet/xtb1.png'></image>
+              </view>
+            </view>
+            <view class="num right-content">
+              <view class='c_puls'>{{order.quantity}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 底部购物车 -->
+    <view class='bottom-cart' wx:if="{{userInfo !== null}}">
+      <view class='cart-left' bindtap='showCartDetail'>
+        <view class='left-icon'>
+          <image src="{{localList.length == 0 ? 'https://assets.jiejie.io/internet/tb1.png' : 'https://assets.jiejie.io/internet/tb2.png' }}"></image>
+          <view class="count" wx:if="{{localList.length !== 0}}">{{cart.count}}</view>
+        </view>
+        <view class="total" wx:if="{{localList.length !== 0}}">￥{{cart.total}}</view>
+        <view wx:if="{{localList.length == 0}}" class="total" style='font-size:28rpx'>您还没有挑选商品</view>
+      </view>
+      <view class='cart-center'>
+        <button  hover-class='none' class='btn_share btn_shareI' bindtap='openShare_Yao'>分享</button>
+        <image class='share_img' src='https://assets.jiejie.io/internet/yaoqing2.png' ></image>
+      </view>
+      <view class='cart-right' disabled="{{!cart.count}}" bindtap="goToCar1">
+        <button class="button-red1">去开单</button>
+      </view>
+    </view>
+    <view class='bottom-cart' wx:if="{{userInfo == null}}">
+      <view class='cart-left'>
+        <view class='left-icon'>
+          <image src='https://assets.jiejie.io/internet/tb1.png'></image>
+        </view>
+        <view class="total" style='font-size:28rpx'>您还没有登入</view>
+      </view>
+      <view class='cart-right' disabled="{{!cart.count}}" bindtap="goLogin">
+        <button class="button-red1">去登录</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<!-- 判断showErrors的值，添加class: errors_index -->
+<view class='errors {{showErrors == false ? "errors_index" : ""}}' hidden='{{showErrors}}'>
+  <!-- 给一个区域，点击errors_box以外的区域时errors_box会消失 -->
+  <view class='errors_mask' bindtap='closeErrors'>
+    <!-- 判断showErrors是否存在。 -->
+    <view class='errors_box' wx:if="{{showErrors == false}}">
+      <text class='errors_text'>
+        {{errors[0].message}}!
+      </text>
+    </view>
+  </view>
+</view>
+
+<!-- 商品详情 -->
+<view class='active_page {{showActivePage == false ? "active_index" : ""}}' hidden='{{showActivePage}}'>
+  <view class='active_mask'>
+    <view class='active_box'>
+      <view class='active_header_img'>
+        <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+          <block wx:for="{{tanchu_box.imageUrls.length == 0 ? imgDefault : tanchu_box.imageUrls}}" wx:for-index="index" wx:key="{{index}}">
+            <swiper-item>
+              <image src="{{item}}" class="slide-image" mode="aspectFit" data-src="{{item}}" bindtap="previewImage" />
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+      <view class='active_body'>
+        <view style='margin:20rpx'>
+          <view class='active_body_name'>{{tanchu_box.name}}</view>
+          <view class='active_body_kindDesc'>{{tanchu_box.pkind !== 0 ? tanchu_box.kindDesc : "无活动"}}</view>
+          <view class='active_body_price'>
+            <view class='active_body_left'>￥{{tanchu_box.price}}</view>
+            <view class='active_body_body'>库存{{tanchu_box.inventory}}</view>
+            <view class='active_body_right' wx:if="{{tanchu_box.inventory >= 0 }}">
+              <view class="quantity-position">
+                <view class="active_body_stepper">
+                  <image src="https://assets.jiejie.io/internet/xtb2.png" bindtap="bindMinus" data-quantity="{{tanchu_box.quantity}}"></image>
+                  <input type="number" bindinput="bindManual" value="{{tanchu_box.quantity}}" disabled='{{tanchu_box.quantity == 0 ? true : false}}' />
+                  <image src="https://assets.jiejie.io/internet/xtb1.png" bindtap="bindPlus"></image>
+                </view>
+              </view>
+            </view>
+            <view class='active_body_right' wx:else>
+              <view style='padding-top:10rpx;color:#999;font-size:29rpx;text-align:center'>库存不足</view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='active_footer'>
+        <view class='active_footer_left'>
+          <view class='active_footer_left_text'>小计</view>
+          <view class='active_footer_left_text1'>￥{{filters.toFix(tanchu_box.price * tanchu_box.quantity)}}</view>
+        </view>
+        <view class='active_footer_body' bindtap="addCar" disabled='{{tanchu_box.inventory <= 0 ? true : false}}' data-item="{{tanchu_box}}">加入购物车</view>
+        <view class='active_footer_right' bindtap="goToCar" disabled='{{tanchu_box.inventory <= 0 ? true : false}}'>立即购买</view>
+      </view>
+    </view>
+    <view class='active_xBox'>
+      <image src='https://assets.jiejie.io/internet/xtb3.png' bindtap='closeActivePage'></image>
+    </view>
+  </view>
+</view>

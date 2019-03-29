@@ -1,0 +1,52 @@
+<view class='containers'>
+  <view class='evaluate_contant'>
+    <!--外层循环控制有几个评价条目  -->
+    <view class='fuwu'>
+      <block wx:for='{{evaluate_contant}}' wx:key='' wx:for-index='idx'>
+        <view class='evaluate_item'>
+          <view class='evaluate_title'>{{item}}</view>
+
+          <!--星星评价  -->
+          <view class='evaluate_box'>
+            <!--内层循环展示每个评价条目的星星  -->
+            <block wx:for="{{stars}}" wx:key=''>
+              <image class="star-image" style="left: {{item*80}}rpx" src="{{scores[idx] > item ? selectedSrc : normalSrc}}">
+                <!-- <view class="item" style="left:0rpx" data-score="{{item + 1}}" data-idx='{{idx}}' bindtap="selectLeft"></view> -->
+                <view class="item" style="left:0" data-score="{{item + 1}}" data-idx='{{idx}}' bindtap="selectRight"></view>
+              </image>
+            </block>
+          </view>
+
+        </view>
+      </block>
+    </view>
+    <view class="opinion_wrap">
+      <view class="wrap">
+        <form bindsubmit="submit_evaluate" id='1' bindreset="formReset">
+          <view class="contant_wrap">
+            <view class="contant">
+              <textarea name="opinion" value="{{contact}}" auto-height placeholder-class="placeholder" placeholder="为了带给您更好的体验,期待您为本次购物体验做出任何评价,我们将会不断改进" />
+            </view>
+          </view>
+          <!-- <view class="big-logos">
+            <view class='big-logos_img'>
+              <image bindtap="upimg" src='{{defImg}}'></image>
+              <image bindtap="upimg" src='{{defImg}}'></image>
+              <image bindtap="upimg" src='{{defImg}}'></image>
+            </view>
+            <block wx:for="{{img_arr}}" wx:key="{{index}}">
+              <view class='logoinfo'>
+                <image src='{{item}}'></image>
+              </view>
+            </block>
+          </view> -->
+          <!-- <template is="image_uploader" data="{{...img1}}" /> -->
+          <include src="./template/up-pic.wxml" />
+          <button formType="submit" hover-class="none">提交</button>
+        </form>
+      </view>
+    </view>
+    <!-- <button class='submit_button' bindtap='submit_evaluate' type='primary'>提交</button> -->
+    <!-- <button bindtap='aaa'>上传图片</button> -->
+  </view>
+</view>

@@ -1,0 +1,12 @@
+var formatTime = function(str) {
+  return getDate(str).toLocaleString()
+}
+
+var formatPrice = function(price){
+  return price.toFixed(2);
+}
+
+module.exports = {
+  formatTime: formatTime,
+  formatPrice: formatPrice,
+}

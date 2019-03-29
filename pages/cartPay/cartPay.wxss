@@ -1,0 +1,131 @@
+@import "../order/detail/detail.wxss";
+
+.body-view {
+  width: 100%;
+  height: 100%;
+}
+
+.radio-group {
+  display: block;
+}
+
+.radio {
+  width: 100%;
+  display: block;
+  padding: 10rpx 0;
+  font-size: 34rpx;
+}
+
+.radio_text {
+  margin-left: 10rpx;
+}
+
+.disable {
+  color: #999;
+}
+
+.bottom_total {
+  position: fixed; /*定位在最下面*/
+  display: flex;
+  flex-direction: column;
+  bottom: 0;
+  width: 100%;
+  height: 120rpx;
+  line-height: 120rpx;
+  z-index: 99;
+  border-top: 1rpx solid #ededed;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  font-size: 30rpx;
+  padding-left: 24rpx;
+  color: red;
+  box-sizing: border-box;
+}
+
+.row text {
+  font-size: 34rpx;
+}
+
+.price {
+  /* 合计金额*/
+  color: red;
+  position: relative;
+}
+
+.priceNew {
+  color: black;
+  text-decoration-line: line-through;
+  text-align: right;
+}
+
+.button-red {
+  font-size: 32rpx;
+  font-weight: bold;
+  background-color: #f44336; /* 红色 */
+  position: fixed;
+  right: 0;
+  color: white;
+  text-align: center;
+  display: inline-block;
+  border-radius: 0rpx;
+  width: 35%;
+  height: 120rpx;
+  line-height: 120rpx;
+}
+
+/*送至  */
+
+.distribution {
+  position: fixed;
+  width: 100%;
+  line-height: 60rpx;
+  bottom: 120rpx;
+  z-index: 99;
+}
+
+.distribution-address {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  padding: 0 24rpx;
+  font-size: 30rpx;
+  background-color: rgb(252, 242, 193);
+}
+
+.distribution .distribution-address-detail {
+  color: rgba(156, 168, 60, 0.849);
+}
+
+.distribution .distribution-arrive {
+  color: rgba(156, 168, 60, 0.849);
+}
+
+.anniu-box {
+  position: fixed;
+  top:43%;
+  width: 100%;
+}
+
+.anniu-shang, .anniu-xia {
+  padding:24rpx;
+  background: rgba(0,0,0,0.4);
+  color:#fff;
+  text-align: center;
+  width:100rpx;
+}
+
+.anniu-shang {
+  position: absolute;
+  left:0;
+}
+
+.anniu-xia{
+  position: absolute;
+  right:0;
+}

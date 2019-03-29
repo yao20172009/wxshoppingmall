@@ -1,0 +1,74 @@
+ <import src="../../components/product/product2.wxml" />
+<import src="../../components/search/search.wxml" />
+
+<!--顶部分类导航条-->
+<view class="">
+  <!-- <template is="pro_search" /> -->
+  <view class="navbar">
+    <view class="nav-1">
+      <scroll-view scroll-x="true" class="nav-1-left" scroll-left="{{scrollLeftValue}}" wx:if="{{!isPickerShow}}">
+        <view wx:for="{{categories}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</view>
+      </scroll-view>
+      <view class="nav-1-left" wx:if="{{isPickerShow}}">
+        <view class="item left2Font" bindtap="goToSearch" style='width:100%'>
+          <!-- {{categories[currentTab]}} -->
+          <template is="bind_search" />
+        </view>
+      </view>
+      <!-- <view class="blankblock"></view> -->
+      <button class="navbarBtn" bindtap="navbarBtnClick">
+        <image src="https://assets.jiejie.io/internet/back.png" class="navbarBtn icon {{isPickerShow ? 'active' : ''}}"></image>
+      </button>
+    </view>
+
+    <view class="picker" wx:if="{{isPickerShow}}">
+      <view class="spitLine"></view>
+      <view class="picker-contain">
+        <view wx:for="{{categories}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 二级菜单 -->
+  <view class="navbar navbar1 {{currentTab == 0 ? 'navOpacity' : ''}}" wx:if="{{!isPickerShow}}">
+    <view class="nav-1 nav-2">
+      <scroll-view scroll-x="true" class="nav-1-left nav-1-left1">
+        <view wx:for="{{menu}}" data-idx="{{index}}" bindtap="bindmenu2" class="item {{currentTab2 == index ? 'active' : ''}}" wx:key="" wx:if='{{currentTab !== 0}}'>{{item}}</view>
+      </scroll-view>
+    </view>
+  </view>
+  <!-- 广告位 -->
+  <!-- <view wx:if="{{isPickerShow == false}}">
+    <swiper autoplay="true" indicator-dots="true" style="height:300rpx;" class='lunbo' wx:if="{{currentTab == 0}}">
+      <block wx:for="{{imgData}}" wx:key="{{index}}">
+        <swiper-item>
+          <image class='auto-img' src='{{item}}'></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view> -->
+  <swiper class="itemContainer {{currentTab == 0 ? 'top80' : 'top160'}}" bindchange="swiperChange" current="{{currentTab}}">
+    <block wx:for="{{categories}}" wx:for-item="cItem" wx:key="unique">
+      <swiper-item>
+        <scroll-view scroll-y="true" bindscrolltolower="downloadMoreItem" bindscrolltoupper="updateItem" bindscroll="scroll" scroll-top="{{scrollTop}}">
+          <view class="child" bindtap="itemTap" wx:for="{{products}}" wx:for-item="proItem" data-idx="{{index}}" wx:key="unique" wx:if="{{products.length !== 0 }}">
+            <template is="itemInfoTemplate" data="{{...proItem.node}}" />
+          </view>
+          <view class='listNo_text' wx:if="{{hasNextPage == false && products.length !== 0 }}">没有了</view>
+          <view class="cartList" wx:if="{{products.length == 0}}">
+            <image src="https://assets.jiejie.io/internet/no_product1.png" />
+            <view>很抱歉,没有相关产品~٩(๑❛ᴗ❛๑)۶~</view>
+          </view>
+        </scroll-view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+  <!-- 透明遮盖层 -->
+  <view class="picker-contain-bg {{isPickerShow? 'show' : ''}}" wx:if="{{isBgNeed}}" bindtap="bgTap"></view>
+</view>
+
+<!-- 回到顶部按钮 -->
+<view class="go-top" bindtap="goTop" hidden="{{isGoTop}}">
+  <!-- <image src="../../images/product/go_top.png" style="width:50px;height:50px;" mode='scaleToFill'></image> -->
+  <view class='go-top-text'>回到顶部</view>
+</view>

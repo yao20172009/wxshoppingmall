@@ -1,0 +1,103 @@
+<!-- banner -->
+<wxs module="filters" src="../../../components/toFiex2.wxs"></wxs>
+<import src="../../../components/rates/rates.wxml" />
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" style='background:#fff'>
+  <block wx:for="{{product.imageUrls.length !== 0 ? product.imageUrls : imgUrls}}" wx:key="">
+    <swiper-item>
+      <image src="{{item}}" data-src="{{item}}" bindtap="previewImage" mode='aspectFit'></image>
+    </swiper-item>
+  </block>
+</swiper>
+<scroll-view scroll-y="true">
+  <view class="detail">
+    <text class="title">{{product.name}}</text>
+    <!-- <view class='active_body_kindDesc'>{{product.pkind !== 0 ? product.kindDesc : "无活动"}}</view> -->
+    <view style='display:flex'>
+      <text class="price">￥{{product.price}}</text>
+      <text class='unit'>/{{product.unit}}</text>
+    </view>
+    <!-- <view style='display:flex;align-items: center;'>
+      <image src='https://assets.jiejie.io/internet/shop13.png'></image>
+      <text class="supplierName">{{product.supplier.name}}</text>
+    </view> -->
+  </view>
+  <view class='line_item'>
+    <view class='line_item_line'></view>
+  </view>
+  <!-- sku选择 -->
+  <text bindtap="toggleDialog" class='item_title'>请选择购买数量</text>
+  <view class='line_item'>
+    <view class='line_item_line'></view>
+  </view>
+  <text class='item_title' bindtap='showRates'>商品评价</text>
+  <!-- <text class="text-remark">点击~评论</text>   -->
+  <template is="ratesLists" data="{{...fuwu}}" wx:if='{{isRates == true}}' />
+  <view class='line_item'>
+    <view class='line_item_line'></view>
+  </view>
+  <text class='item_title'>商品详情</text>
+  <block wx:for="{{product.imageUrls.length !== 0 ? product.imageUrls : imgUrls}}" wx:key="name">
+    <image class="image_detail" src="{{item}}" />
+  </block>
+  <view class="temp"></view>
+</scroll-view>
+<!-- 底部悬浮栏 -->
+<view class="detail-nav">
+  <button open-type="contact" class='kefu_btn'></button>
+  <image  class="kefu_img" src="https://assets.jiejie.io/internet//kefu.png" />
+  <image class='toCar' bindtap="toCar" src="../../../images/nav/cart-on.png" />
+  <button class="button-red button-red1 btn" bindtap="toggleDialog" formType="submit">购买</button>
+</view>
+
+<!-- 底部弹出层 -->
+<view class="dialog {{ showDialog ? 'dialog--show' : '' }}">
+  <view class="dialog__mask" bindtap="closeDialog" />
+  <view class="dialog__container">
+    <view class="row">
+      <image bindtap="closeDialog" class="image-close" src="https://assets.jiejie.io/internet/close.png"></image>
+      <image class="image-sku" src="{{product.imageUrls.length !== 0 ? product.imageUrls[0] : imgDefault}}" background-size="cover" mode="scaleToFill"></image>
+      <view class="column">
+        <text class="sku-title">{{product.name}}</text>
+        <text class="sku-price">￥{{product.price}}</text>
+        <text class="sku-title">库存  {{product.inventory}}  </text>
+        <text></text>
+      </view>
+    </view>
+    <text class="border-line"></text>
+    <view class="row">
+      <text class='buyNum'>购买数量</text>
+      <view class="quantity-position">
+        <view class="stepper">
+          <!-- 减号 -->
+          <text class="{{minusStatus}}" bindtap="bindMinus" data-quantity="{{product.quantity}}">-</text>
+          <!-- 数值 -->
+          <input type="number" bindinput="bindManual" value="{{product.quantity}}" />
+          <!-- 加号 -->
+          <text class="normal" bindtap="bindPlus">+</text>
+        </view>
+      </view>
+    </view>
+    <view class='row'>
+      <text class='buyNum'>小计</text>
+      <view class='quantity-position'>
+        <view class='stepper-total'>
+          <text>¥ </text>
+          <text>{{filters.toFix(product.price * product.quantity)}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='row' wx:if='{{product.promotionProduct !== null}}'>
+      <text class='buyNum'>优惠</text>
+      <view class='quantity-position'>
+        <view class='stepper-total'>
+          <text>{{product.promotionProduct.kindDesc == "特价商品" && product.promotionProduct.quantity !== 0 ? "购满" + product.promotionProduct.quantity + product.promotionProduct.unit + "享受特价" : product.promotionProduct.kindDesc}}</text>
+        </view>
+      </view>
+    </view>
+    <text class="border-line"></text>
+    <view class="button_box">
+      <button type='primary' class="button-green" bindtap="addCar">加入购物车</button>
+      <button type="warn" class="button-red" bindtap='goToCar'>立即购买</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,52 @@
+/*头部背景图  */
+.background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 400rpx;
+  background: #fafafa;
+  justify-content: center;
+}
+.background-image {
+  width: 100%;
+  height: 100%;
+}
+/*内容  */
+.content{
+  width: 100%;
+  height: 100rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #fff;
+  font-weight: bold;
+  border-bottom: 1rpx solid #c7c7c7;
+}
+.content .picture{
+  width: 40rpx;
+  height: 40rpx;
+  margin: 20rpx;
+}
+.content .name{
+  width: 40%;
+  padding-left: 10rpx;
+}
+.content .details{
+  width: 45%;
+  text-align: right;
+}
+/* 底部 */
+.weui-footer {
+  color: #999;
+  font-size: 14px;
+  text-align: center;
+  position: fixed;
+  bottom: 0.52em;
+  left: 0;
+  right: 0;
+}
+.weui-footer__text {
+  padding: 0 0.34em;
+  font-size: 12px;
+}

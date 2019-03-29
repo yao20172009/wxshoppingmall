@@ -1,0 +1,154 @@
+<wxs src="../../utils/common.wxs" module="formateUtil" />
+<view class='page' wx:if="{{order !== null}}">
+  <!--收货 地址 -->
+  <view class='address_box'>
+    <view class='address_left'>
+      <image src='https://assets.jiejie.io/internet/12.png'></image>
+    </view>
+    <view class='address_right'>
+      <view class='address_name_phone'>
+        <view class='address_name'>{{order.receiver}}</view>
+        <view class='address_phone'>{{order.phone}}</view>
+      </view>
+      <view class='address_address'>{{order.address}}</view>
+    </view>
+  </view>
+
+  <view class='shop-box'>
+    <view class='right'>
+      <view class='shop-name'> 支付方式
+      <view class='pay-awy-title'>(该店开启了在线支付)</view>
+      </view>
+    </view>
+  </view>
+  <view class='orderNo'>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <label class="radio" wx:for="{{payment}}" wx:key="{{}}">
+        <radio value="{{item.name}}" checked="{{item.checked}}" disabled='{{item.disable}}' />
+        <text class='radio_text {{item.disable == true ? "disable" : ""}}'>{{item.value}}</text>
+      </label>
+    </radio-group>
+  </view>
+
+  <view style='margin:20rpx'></view>
+  <view class="containers1">
+    <!-- 店名 -->
+    <view class='shop-box item-border'>
+      <view class='left shop-image'>
+        <image class="item-singleSelect" src='https://assets.jiejie.io/internet/shop13.png' />
+      </view>
+      <view class='right shop-right'>
+        <view class='shop-name'> {{order.supplier.name}} </view>
+      </view>
+      <!-- <view class='shop-peidan' bindtap='goPeidan'>可配单</view> -->
+    </view>
+
+    <view class='shop-items' wx:for="{{order.items}}" wx:key="{{index}}">
+      <view class='item-left'>
+        <image src="{{item.product.imageUrls.length == 0 ? 'https://assets.jiejie.io/internet/weishangchuan.jpeg' : item.product.imageUrls[0]}}" mode="aspectFit"></image>
+      </view>
+      <view class='item-body'>
+        <view class='item-product'>{{item.productName}}</view>
+        <view class='item-quantity'>x{{item.quantity}} {{item.unit}}</view>
+      </view>
+      <view class='item-right'>
+        <view class='item-price'>￥ {{item.price}}</view>
+      </view>
+    </view>
+
+    <view class='shop-cart shop-cart-order' wx:if="{{order != ''}}">
+      <!-- 活动提示 -->
+      <block>
+        <view wx:if="{{order.gifts.length > 0 }}">
+          <view class="content" wx:for="{{order.gifts}}" wx:key="">
+            <view class="giftName" style='background-color:red'>赠</view>
+            <view class="giftProduct middle">{{item.productName}}</view>
+            <view class="giftNumber middle">{{item.quantity}} {{item.unit}}</view>
+          </view>
+        </view>
+        <!-- <view class='discount' wx:if="{{formateUtil.formatPrice(order.originAmount - order.amount) > 0}}">
+          优惠
+          <text> ￥{{formateUtil.formatPrice(order.originAmount - order.amount)}}</text>
+        </view> -->
+        <view class='order_total1' wx:if='{{order.card == null }}'>
+          共 {{nums}} 件商品 总计
+          <text style='color:red'>￥{{order.amount}}</text>
+        </view>
+        <view class='order_total1' wx:if='{{order.card !== null}}'>
+          共 {{nums}} 件商品 合计
+          <text style='color:#000'>￥{{order.originAmount}}</text>
+        </view>
+        <view class='order_total1' wx:if="{{order.card !== null}}">
+          <!-- 优惠 -->
+          <text class='kindName'>{{order.card.kindName}}</text>
+          <text class='kindName' style='background:blue'>{{order.card.name}}</text>
+          <text> ￥-{{order.cardDiscountAmount}}</text>
+        </view>
+      </block>
+      <!-- 合计 -->
+      <!-- <view class='order_xiaoji nav order_xiaoji1'> -->
+      <!-- <view class='order_quantity order_quantity1'>共 {{nums}} 件商品</view> -->
+      <view class='order_total1' wx:if="{{order.card !== null}}">
+        总计
+        <text>￥{{order.amount}}</text>
+      </view>
+      <!-- </view> -->
+    </view>
+  </view>
+
+  <view style='margin:20rpx'></view>
+
+  <view class='shop-box item-border'>
+    <view class='right'>
+      <view class='shop-name'> 订单详情 </view>
+    </view>
+  </view>
+  <view class='orderNo'>
+    <view class='order_text'>订单编号</view>
+    <view class='order_no'>{{order.no}}</view>
+  </view>
+  <view class='orderNo'>
+    <view class='order_text'>下单时间</view>
+    <view class='order_no'>{{order.createdAt}}</view>
+  </view>
+  <view class='orderNo'>
+    <view class='order_text'>订单状态</view>
+    <view class='order_no'>{{order.statusName}}
+    </view>
+  </view>
+
+  <view style='margin:20rpx;height:130rpx'></view>
+
+
+  <!--送至  -->
+  <view class='distribution'>
+  
+    <view class='distribution-address'>
+      <!-- <text class="distribution-arrive">提示：</text> -->
+      <text class="distribution-address-detail">您一共提交了 {{ordersNums}} 个订单，还剩 {{ordersLength}} 个</text>
+    </view>
+  </view>
+  <!-- 确认订单 -->
+  <view class="bottom_total">
+    <view class="row" wx:if="{{payValue == 'no-1'}}">
+      <text>合计：</text>
+      <text class="price">￥{{order.amount}}</text>
+      <view class='button-red' bindtap='confirmOrder'>确认订单</view>
+    </view>
+    <view class="row" wx:if="{{payValue == 'no-2'}}">
+      <text>应付：</text>
+      <text class="price">￥{{order.amount}}</text>
+      <view class='button-red' bindtap='gotoPay'>去付款</view>
+    </view>
+  </view>
+</view>
+
+
+<view class='anniu-box'>
+  <view class='anniu-shang'  bindtap='Shangtiao' data-id="{{order.id}}" wx:if="{{orderIndex !== 0}}">
+    上一个
+  </view>
+  <view class='anniu-xia' bindtap='Xiatiao' data-id="{{order.id}}" wx:if="{{ordersLength >= 2 && orderIndex !== ordersLength - 1}}">
+    下一个
+  </view>
+</view>

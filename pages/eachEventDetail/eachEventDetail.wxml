@@ -1,0 +1,208 @@
+<wxs module="filters" src="../../components/toFiex2.wxs"></wxs>
+<import src="../../components/menu/menu.wxml" />
+<import src="../../components/shareView/shareView.wxml" />
+<template is="shareView" data="{{...sharePage}}" />
+<template is="goToUrls" data="{{...menuBox}}" /> 
+<view class='page-container' wx:if="{{promotionProduct !== null}}">
+  <view class='pageView detail-page'>
+    <view class='detail-top'>
+      <view class='image-box'>
+        <view class='slider-container'>
+           <view class='productionDate' wx:if="{{promotionProduct.productionDate !== null}}">生产日期  {{promotionProduct.productionDate}}</view> 
+          <swiper class="swiper" indicator-dots="true" autoplay="true" interval="5000" duration="1000">
+            <block wx:for="{{imageUrls.length == 0 ? movies : imageUrls}}" wx:for-index="index" wx:key="{{index}}">
+              <swiper-item>
+                <image src="{{item}}" class="slide-image" mode="aspectFit" data-src="{{item}}" bindtap="previewImage"/>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+
+        <view class='info-top' wx:if="{{shareActive == false}}">
+          <view class='start-end-wrap'>
+            <image class='wings' src='https://assets.jiejie.io/internet/left_wings.png' mode='scaleToFill'></image>
+            <text class='start-end'>
+              <text>{{startTime}}</text>
+            <text> 至 </text>
+            <text>{{endTime}}</text>
+            </text>
+            <image class='wings' src='https://assets.jiejie.io/internet/right_wings.png' mode='scaleToFill'></image>
+          </view>
+          <view class='table'>
+            <view class='cell logo' wx:if="{{promotionProduct.kind !== 7}}">
+              <text>{{promotionProduct.kindName}}</text>
+            </view>
+            <view class='cell logo' wx:if="{{promotionProduct.kind == 7}}">
+              <text>{{promotionProduct.specialPrice !== 0 ?promotionProduct.specialPrice : promotionProduct.product.price}}</text>
+              <text>元购</text>
+            </view>
+            <view class='cell'>
+              <view>
+                <text class="{{promotionProduct.kind == 7 ?'cell_oprice_line' : 'cell_oprice'}}">
+                  <text>￥</text>
+                <text>{{promotionProduct.specialPrice !== 0 ?promotionProduct.product.price : promotionProduct.product.price}}</text>
+                </text>
+              </view>
+              <view>
+                <text class='cell_text'>已售 {{promotionProduct.sales}}</text>
+              </view>
+            </view>
+            <view class='cell right'>
+              <view class='yellow' wx:if="{{event_text2 !== '活动已结束'}}">{{listActive == "true" ? event_text : event_text1}}</view>
+              <view class='yellow' wx:if="{{event_text2 == '活动已结束'}}">{{listActive == "true" ? event_text : event_text2}}</view>
+              <view wx:if="{{event_text !== '活动已结束'}}">
+                <text class='time-number'>{{countDownDay}}</text>
+                <text class='day'>天</text>
+                <text class='time-number'>{{countDownHour}}</text>
+                <!-- <text class='time-number'>3</text> -->
+                <text class='colon'>:</text>
+                <text class='time-number'>{{countDownMinute}}</text>
+                <!-- <text class='time-number'>1</text> -->
+                <text class='colon'>:</text>
+                <text class='time-number'>{{countDownSecond}}</text>
+                <!-- <text class='time-number'>5</text> -->
+              </view>
+            </view>
+          </view>
+        </view>
+        <!-- 转发时显示 -->
+      <view class='winner-wrap' wx:if="{{shareActive == true}}">
+        <view style='color:#666;padding:8rpx'>
+          <text class="rmb">¥</text>
+          <text class='newPrice'>{{promotionProduct.specialPrice }}</text>
+          <text class='oldPrice'>¥{{promotionProduct.product.price }}</text>
+        </view> 
+      </view>
+      <view class='shop' bindtap='goToShop'>
+        <image class='avatar1' src='../../images/order-details/wxb.png' mode='aspectFill'></image>
+        <text>{{promotionProduct.supplier.name}}</text>
+      </view>
+        <view class='info-main'>
+          <view class='table'>
+            <view class='cell title'>{{promotionProduct.product.name}}</view>
+            <view class='cell min'>
+              <view>剩余库存</view>
+              <view>{{promotionProduct.inventory - promotionProduct.sales}} {{promotionProduct.product.unit}}</view>
+            </view>
+            <view class='cell min'>
+              <view>参与人数</view>
+              <view>{{promotionProduct.buyersCount}}</view>
+            </view>
+          </view>
+          <view class='table' style='border-top:1px solid #ddd' wx:if="{{promotionProduct.gift !== null}}">
+            <view class='cell title' style='color:red;position: relative'>
+              <image class='gift-img' src='../../images/nav/gift-fill.png'></image>
+              <text style='margin-left:50rpx;'>{{promotionProduct.gift.name}}</text>
+            </view>
+            <view class='cell min' style='color:red'>
+              <view></view>
+              <view></view>
+            </view>
+            <view class='cell min'>
+              <view></view>
+              <view></view>
+            </view>
+          </view>
+          <view class='table' style='border-top:1px solid #ddd' wx:if="{{promotionProduct.productionDate !== null}}">
+            <view class='cell title' style='position: relative'>
+              <text>生产日期</text>
+              <text style='margin-left:50rpx;font-size:32rpx'>{{promotionProduct.productionDate}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='mailing-fee-text'>
+        <text wx:if="{{promotionProduct.quantity !== 0  && promotionProduct.kindDesc == '特价商品'}}">{{promotionProduct.quantity}}{{promotionProduct.unit}}起购</text>
+        <text>{{promotionProduct.kindDesc}}</text>
+        <text wx:if="{{promotionProduct.customerLimit !== 0}}">{{promotionProduct.customerLimit == 0 ? "" : "限购数量" + promotionProduct.customerLimit}}</text>
+         <text wx:if="{{promotionProduct.cityOnly == true }}" style='background:blue;border:1rpx solid blue'>只限城区</text> 
+      </view>
+      <!-- 幸运用户 -->
+      <view class='winner-wrap'>
+        <view style='color:#666;padding:8rpx'>参与用户</view>
+        <view class='winner-list'>
+          <view class='winner' wx:for="{{promotionProduct.buyers.edges}}" wx:key="{{index}}">
+            <image class='avatar' mode='scaleToFill' src="{{item.node.avatar}}"></image>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+  <view class='action-bars' bindtap='toggleDialog' wx:if="{{event_text2 !== '活动已结束'}}">
+    <button class="status-bar created btn" disabled="{{disabled}}" data-id="{{promotionProduct.id}}" data-name="{{promotionProduct.product.name}}" data-price="{{promotionProduct.specialPrice == 0 ? promotionProduct.product.price : promotionProduct.specialPrice}}"
+      data-unit="{{promotionProduct.unit}}" data-quantity="{{promotionProduct.quantity}}" data-imageurls="{{promotionProduct.product.imageUrls}}" data-inventory="{{promotionProduct.inventory - promotionProduct.sales}}" data-amount="{{promotionProduct.amount}}"
+      data-discountRate="{{promotionProduct.discountRate}}" data-discountAmount="{{promotionProduct.discountAmount}}" data-customerLimit="{{promotionProduct.customerLimit}}"
+      data-boughtQuantity="{{promotionProduct.boughtQuantity}}"
+      data-kindDesc="{{promotionProduct.kindDesc}}"
+      data-gift="{{promotionProduct.gift}}" wx:if='{{isInventory == true}}' data-supplier="{{promotionProduct.supplier}}" data-productId='{{promotionProduct.product.id}}'>
+       <!-- 马上抢购  -->
+       {{disabled == false ? "马上抢购" : "等待活动开始"}} 
+      <!-- countDownDay + "天" + countDownHour + ":" + countDownMinute + ":" + countDownSecond -->
+    </button>
+    <button class="status-bar created btn" disabled='true' wx:if='{{isInventory == false}}'>剩余库存未满足活动条件</button>
+  </view>
+    <view class='action-bars' bindtap='toggleDialog' wx:if="{{event_text2 == '活动已结束'}}">
+        <button class="status-bar created btn" disabled='true' wx:if='{{event_text2 == "活动已结束"}}'>活动已结束</button>
+    </view>
+</view>
+
+<button bindtap='openShare_Yao' class="share" style="background-image:url(https://assets.jiejie.io/internet/yaoqing3.png" plain='true'></button>
+
+<image class="share imgShare" src='https://assets.jiejie.io/internet/yaoqing3.png' >
+</image>
+
+<!-- 底部弹出层 -->
+<view class="dialog {{ showDialog ? 'dialog--show' : '' }}">
+  <view class="dialog__mask" bindtap="closeDialog" />
+  <view class="dialog__container">
+    <image bindtap="closeDialog" class="image-close" src="https://assets.jiejie.io/internet/close.png"></image>
+    <view class="row">
+      <image class="image-sku" src="{{tanchu_box.imageurls.length !== 0 ? tanchu_box.imageurls[0] : movies[0]}}" background-size="cover" mode="scaleToFill"></image>
+      <view class="column">
+        <view class="sku-title">{{tanchu_box.name}}</view>
+        <view class="sku-price">￥{{tanchu_box.price}}</view>
+        <view class="sku-title">库存  {{tanchu_box.inventory}}  件</view>
+      </view>
+    </view>
+    <text class="border-line"></text>
+    <view class="row">
+      <text class='buyNum'>购买数量</text>
+      <view class="quantity-position">
+        <view class="stepper">
+          <!-- 减号 -->
+          <text class="{{minusStatus}}" bindtap="bindMinus" data-quantity="{{promotionProduct.quantity}}">-</text>
+          <!-- 数值 -->
+          <input type="number" bindinput="bindManual" value="{{tanchu_box.quantity}}" />
+          <!-- 加号 -->
+          <text class="normal" bindtap="bindPlus">+</text>
+        </view>
+      </view>
+    </view>
+    <view class='row'>
+      <text class='buyNum'>小计</text>
+      <view class='quantity-position'>
+        <view class='stepper-total' >
+          <text>¥ </text>
+          <text>{{filters.toFix(tanchu_box.price * tanchu_box.quantity)}}</text>
+        </view>
+      </view>
+    </view>
+    <view class='row'>
+      <text class='buyNum'>活动</text>
+      <view class='quantity-position'>
+        <view class='stepper-total'>
+          <text>{{promotionProduct.kindDesc == "特价商品" && promotionProduct.quantity !== 0 ? "购满" + promotionProduct.quantity + promotionProduct.unit + "享受特价" : promotionProduct.kindDesc}}</text>
+        </view>
+      </view>
+    </view>
+   
+    <text class="border-line"></text>
+    <view class="button_box">
+      <form bindsubmit='createOrder' report-submit="true">
+        <button type="warn" class="button-red" formType="submit" disabled="{{promotionProduct.customerLimit !== 0 && promotionProduct.customerLimit - promotionProduct.boughtQuantity == 0 ?true : false}}" wx:if="{{event_text2 !== '活动已结束'}}">{{promotionProduct.customerLimit !== 0 && promotionProduct.customerLimit - promotionProduct.boughtQuantity == 0 ? '超过购买限制，剩余购买数量为' + (promotionProduct.customerLimit - promotionProduct.boughtQuantity) : '立即购买'}}</button>
+        <button type="warn" class="button-red" formType="submit" disabled="{{event_text2 == '活动已结束' ? true : false}}" wx:if="{{event_text2 == '活动已结束'}}">{{event_text2 == "活动已结束" ? '活动已结束' : '立即购买'}}</button>
+      </form>
+    </view>
+  </view>
+</view>

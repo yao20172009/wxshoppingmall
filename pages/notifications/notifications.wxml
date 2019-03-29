@@ -1,0 +1,36 @@
+<!--pages/myOrder/orderMessage.wxml-->
+
+<view class="containers">
+  <view class='title_have' wx:if="{{items.length !== 0}}">您有以下消息</view>
+  <view class='title_no' wx:if="{{items.length == 0}}">您目前没有任何消息</view>
+  <view class="massge {{list.node.read == true ? 'read' : ''}}" wx:for="{{items}}" wx:for-item="list" wx:key="">
+    <!-- <template is="noticeType" data="{{...list}}" wx:if="{{list.modelType == 'order'}}"/> -->
+    <template is="noticeType1" data="{{...list.node}}" wx:if="{{list.node.modelType == 'PointChange'}}" />
+  </view>
+  <!-- <view class='center center_bottom' wx:if='{{theEnd == true}}'>已经到底了哦!</view> -->
+</view>
+
+<template name="noticeType">
+  <view class="massge-hd">
+    <image class="massge-img" src="{{read == true ? '../../images/notice/yidu.png' : '../../images/notice/weidu_red.png'}}"></image>
+    <view class='massge-title'>系统消息</view>
+  </view>
+  <view class="massge-bd font-color-666">
+    <text>订单<text class="font-color-c24e4e font-size-15">{{order_no}}</text></text>
+    <text style="margin-top:22rpx;"><text>客户<text class="font-color-c24e4e font-size-15">{{customer_name}}</text></text>
+    <text style="margin-left:40rpx;">金额</text> {{money}}</text>
+  </view>
+</template>
+
+<!-- 获得积分消息 -->
+<template name="noticeType1">
+  <view class='massge-box' bindtap='readItem' data-id='{{id}}' data-read='{{read}}'>
+    <view class="massge-hd">
+      <image class="massge-img" src="{{read == true ? '../../images/notice/yidu.png' : '../../images/notice/weidu_red.png'}}"></image>
+      <view class='massge-title'>获得积分</view>
+    </view>
+    <view class="massge-bd font-color-666">
+      <view class='massge-ft'>{{content}}</view>
+    </view>
+  </view>
+</template>

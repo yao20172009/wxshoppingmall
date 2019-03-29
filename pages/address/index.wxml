@@ -1,0 +1,35 @@
+<view class="containers">
+  <dialog is-show-toast="{{isShowToast}}" toast-text="{{toastText}}" />
+  <view class="address-list">
+    <view class="item" wx:for="{{addressList}}" wx:key="">
+      <!-- first row -->
+      <view class="header">
+        <text class="realname">{{item.receiver}}</text>
+        <text class="mobile">{{item.phone}}</text>
+      </view>
+      <!-- second row -->
+      <view class="summary">{{item.province}} {{item.city}} {{item.county}} {{item.road}}</view>
+      <!-- third row -->
+      <view class="footer">
+        <!-- is default switch -->
+        <view class="set-default" data-id="{{item.id}}" data-index="{{index}}" bindtap="setDefault">
+          <!-- circle or success type -->
+          <icon type="{{item.default == true ? 'success_circle' : 'circle'}}"/>
+          <text>默认地址</text>
+        </view>
+        <!-- edit and delete button -->
+        <view class="operation">
+          <view class="operation_icon" data-id="{{item.id}}" data-index="{{index}}" bindtap="edit">
+            <image src="https://assets.jiejie.io/internet/icon_edit.png" />
+            <text>编辑</text>
+          </view>
+          <view class="operation_icon" data-id="{{item.id}}" data-index="{{index}}" bindtap="delete">
+            <image src="https://assets.jiejie.io/internet/icon_delete.png" />
+            <text>删除</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <button bindtap="add" type="primary" class="address-add">添加</button>
+</view>
